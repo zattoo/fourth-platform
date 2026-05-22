@@ -1,9 +1,6 @@
 # The Fourth Platform: How Vega got us surprisingly close to "Write Once, Run Everywhere"
 
-> The story about how Zattoo moved from 3 native platforms (Android, Apple, Web) tech stack to a unified React Native architecture, enabled by the fourth platform: Vega.
-
-🏢 Zattoo — European live-TV streaming
-🎬 Streaming on phones, TVs, set-top boxes, browsers, and Amazon Vega
+The story about how Zattoo moved from 3 native platforms (Android, Apple, Web) tech stack to a unified React Native architecture, enabled by the fourth platform: Vega.
 
 ---
 
