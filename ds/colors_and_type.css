@@ -1,0 +1,170 @@
+/* ==========================================================================
+   Zattoo Design System — Colors & Typography
+   ========================================================================== */
+
+/* --- Font Faces --- */
+@font-face {
+  font-family: 'Compasse';
+  src: url('./fonts/Compasse-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Compasse';
+  src: url('./fonts/Compasse-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Compasse';
+  src: url('./fonts/Compasse-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Compasse';
+  src: url('./fonts/Compasse-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Compasse';
+  src: url('./fonts/Compasse-Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Compasse';
+  src: url('./fonts/Compasse-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Base Color Tokens --- */
+:root {
+  /* Surfaces (dark → light elevation) */
+  --z-surface-base: rgb(26, 26, 26);
+  --z-surface-card: rgb(35, 35, 35);
+  --z-surface-elevated: rgb(45, 45, 45);
+  --z-surface-higher: rgb(56, 56, 56);
+
+  /* Text */
+  --z-text-primary: rgb(235, 235, 235);
+  --z-text-secondary: rgb(155, 155, 155);
+  --z-text-tertiary: rgb(113, 113, 113);
+  --z-text-inverse: rgb(26, 26, 26);
+  --z-white: rgb(255, 255, 255);
+
+  /* Accents */
+  --z-accent-primary: rgb(249, 101, 34);
+  --z-accent-teal: rgb(0, 161, 166);
+  --z-accent-red: rgb(229, 41, 45);
+  --z-accent-blue: rgb(106, 172, 232);
+  --z-accent-yellow: rgb(255, 171, 0);
+  --z-accent-green: rgb(60, 161, 86);
+
+  /* Semantic */
+  --z-color-live: var(--z-accent-red);
+  --z-color-record: var(--z-accent-red);
+  --z-color-success: var(--z-accent-teal);
+  --z-color-error: var(--z-accent-red);
+  --z-color-warning: var(--z-accent-yellow);
+  --z-color-info: var(--z-accent-blue);
+  --z-color-cta: var(--z-accent-primary);
+  --z-color-progress: var(--z-accent-primary);
+  --z-color-link: rgb(36, 58, 247);
+
+  /* Gradients */
+  --z-tab-gradient: linear-gradient(rgb(0, 166, 139), rgb(0, 82, 85));
+  --z-image-protection: linear-gradient(rgba(35, 35, 35, 0) 61%, rgb(35, 35, 35) 95%);
+
+  /* Borders */
+  --z-border-default: rgb(45, 45, 45);
+  --z-border-subtle: rgba(255, 255, 255, 0.1);
+
+  /* --- Typography --- */
+  --z-font-family: 'Compasse', 'Barlow Semi Condensed', sans-serif;
+
+  /* Headings */
+  --z-heading-l-size: 28px;
+  --z-heading-l-line: 32px;
+  --z-heading-m-size: 20px;
+  --z-heading-m-line: 24px;
+  --z-heading-s-size: 16px;
+  --z-heading-s-line: 24px;
+  --z-heading-xs-size: 14px;
+  --z-heading-xs-line: 16px;
+
+  /* Subheadings */
+  --z-subheading-l-size: 22px;
+  --z-subheading-l-line: 32px;
+  --z-subheading-m-size: 20px;
+  --z-subheading-m-line: 28px;
+  --z-subheading-s-size: 16px;
+  --z-subheading-s-line: 24px;
+  --z-subheading-xs-size: 14px;
+  --z-subheading-xs-line: 20px;
+
+  /* Body */
+  --z-body-m-size: 16px;
+  --z-body-m-line: 24px;
+  --z-body-s-size: 14px;
+  --z-body-s-line: 20px;
+  --z-body-xs-size: 12px;
+  --z-body-xs-line: 16px;
+
+  /* Button */
+  --z-button-m-size: 16px;
+  --z-button-m-line: 20px;
+  --z-button-label-size: 14px;
+  --z-button-label-line: 20px;
+  --z-button-large-size: 30px;
+  --z-button-large-line: 30px;
+
+  /* Flag */
+  --z-flag-size: 10px;
+  --z-flag-line: 16px;
+
+  /* --- Spacing --- */
+  --z-space-1: 2px;
+  --z-space-2: 4px;
+  --z-space-3: 6px;
+  --z-space-4: 8px;
+  --z-space-5: 10px;
+  --z-space-6: 12px;
+  --z-space-7: 16px;
+  --z-space-8: 24px;
+
+  /* --- Radii --- */
+  --z-radius-sm: 2px;
+  --z-radius-md: 4px;
+  --z-radius-lg: 14px;
+  --z-radius-pill: 120px;
+  --z-radius-round: 50%;
+}
+
+/* --- Semantic Type Classes --- */
+.z-heading-l  { font: 700 var(--z-heading-l-size)/var(--z-heading-l-line) var(--z-font-family); }
+.z-heading-m  { font: 700 var(--z-heading-m-size)/var(--z-heading-m-line) var(--z-font-family); }
+.z-heading-s  { font: 700 var(--z-heading-s-size)/var(--z-heading-s-line) var(--z-font-family); }
+.z-heading-xs { font: 700 var(--z-heading-xs-size)/var(--z-heading-xs-line) var(--z-font-family); }
+
+.z-subheading-l  { font: 400 var(--z-subheading-l-size)/var(--z-subheading-l-line) var(--z-font-family); }
+.z-subheading-m  { font: 400 var(--z-subheading-m-size)/var(--z-subheading-m-line) var(--z-font-family); }
+.z-subheading-s  { font: 400 var(--z-subheading-s-size)/var(--z-subheading-s-line) var(--z-font-family); }
+.z-subheading-xs { font: 400 var(--z-subheading-xs-size)/var(--z-subheading-xs-line) var(--z-font-family); }
+
+.z-body-m  { font: 400 var(--z-body-m-size)/var(--z-body-m-line) var(--z-font-family); }
+.z-body-s  { font: 400 var(--z-body-s-size)/var(--z-body-s-line) var(--z-font-family); letter-spacing: 0.01em; }
+.z-body-xs { font: 400 var(--z-body-xs-size)/var(--z-body-xs-line) var(--z-font-family); }
+
+.z-button-m     { font: 700 var(--z-button-m-size)/var(--z-button-m-line) var(--z-font-family); }
+.z-button-label { font: 700 var(--z-button-label-size)/var(--z-button-label-line) var(--z-font-family); letter-spacing: 0.01em; }
+
+.z-flag { font: 800 var(--z-flag-size)/var(--z-flag-line) var(--z-font-family); letter-spacing: 0.01em; }

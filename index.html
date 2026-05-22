@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Fourth Platform — Zattoo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400;500;700;800&display=swap" />
+<link rel="stylesheet" href="ds/colors_and_type.css" />
+<link rel="stylesheet" href="deck.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: #000; font-family: 'Compasse', sans-serif; }
+  /* Summit-variant chrome: hide the X/Y pager on content slides
+     since we're using deck-stage's own overlay counter. */
+  deck-stage[data-variant="summit"] .deck-footer .pager { display: none; }
+</style>
+</head>
+<body>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="deck-stage.js"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="slides-content.jsx"></script>
+<script type="text/babel" src="slides-frame.jsx"></script>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="280" fill="#0d0d0d"/>
+  <g transform="translate(120, 84)">
+    <rect x="0" y="0" width="160" height="112" rx="4" fill="none" stroke="#FF6A2C" stroke-width="3"/>
+    <text x="80" y="56" text-anchor="middle" dominant-baseline="middle" fill="#FAFAFA" font-family="Helvetica, sans-serif" font-weight="900" font-size="32" letter-spacing="-1">M×P</text>
+    <text x="80" y="84" text-anchor="middle" dominant-baseline="middle" fill="#FF6A2C" font-family="Helvetica, sans-serif" font-weight="700" font-size="9" letter-spacing="2">REACT SUMMIT</text>
+  </g>
+</svg>
+</template>
+
+<div id="mount"></div>
+
+<script type="text/babel">
+function Deck() {
+  // 22 slides for ~20-minute React Summit slot
+  const slides = [
+    SummitCover,         // 01 · Cover (Amsterdam · React Summit 2026)
+    SummitHook,          // 02 · Overview — the three-part story
+    SummitMe,            // 03 · Whoami (bento)
+    Chapter01_Zattoo,    // 04 · Chapter 01 — Who is Zattoo?
+    S03_Everywhere,      // 05 · The Product (full-bleed hero)
+    S04_Moments,         // 06 · Product Moments — meeting people where they live
+    Chapter02_Challenge, // 07 · Chapter 02 — The Challenge
+    S05_Niche,           // 08 · Niche — where our users actually watch
+    S06_Matrix,          // 09 · The matrix (platforms × clients × tenants)
+    S08_Quote,           // 07 · "Every new platform multiplied effort"
+    S09_Duplication,     // 08 · Platform-centric: high duplication
+    S23b_Ownership,      // 09 · End-to-end ownership (team org)
+    S23c_OneCodebase,    // 10 · Bridge — one team / one codebase
+    Chapter03_Failed,    // 11 · Chapter 03 — Early failed attempts
+    S10_PWA,             // 11 · PWA 2019–2020
+    S11_Candidates,      // 08 · Cross-platform candidates — none closed the TV matrix
+    Chapter04_Catalyst,  // 09 · Chapter 04 — The Catalyst
+    S13_NDA,             // 16 · Invitation
+    S15_SWOT,            // 17 · React Native: SWOT
+    S14_WhyMatters,      // 18 · For Amazon / for us
+    S16_StrategicImportance, // 19 · Strategic importance pull quote
+    Chapter05_Starting,  // 20 · Chapter 05 — Starting before you're ready
+    S17_PoC,             // 21 · One engineer, two sprints
+    S17b_PoCScreens,     // 22 · PoC visual proof (auth + stream)
+    S18_Signal,          // 23 · The signal
+    Chapter06_GreenLight, // 24 · Chapter 06 — Green light
+    S18b_RIF,            // 25 · Resource Intensive Frontend pull quote
+    Chapter07_Migration, // 26 · Chapter 07 — Migration in Practice
+    S20_Monorepo,        // 27 · Monorepo structure
+    S21_Overrides,       // 28 · Build-time overrides (the spine)
+    S22_Native,          // 28 · Native escape hatches, kept small
+    S19b_VegaFirstBoot,  // 31 · Vega first boot — memo from the keyboard
+    S22b_TestSuite,      // 32 · One test suite, every platform
+    S23_Domains,         // 33 · Organised by domain, not platform
+    S23d_ProductLook,    // 34 · Product look on migration
+    S23f_SmartIteration, // 35 · Smart iteration · QR-code login
+    S23e_BetaFeedback,   // 36 · Beta users share their experiences
+    S23g_TransformingOrg,// 37 · Transforming the organisation
+    S23h_TeamTopologies, // 38 · Team Topologies framework
+    S23i_Journey,        // 39 · The journey — org evolution timeline
+    S23i2_OneTeam,       // 40 · One UTV team — 2023
+    S23i3_TwoTeams,      // 41 · Two teams — 2024
+    S23j_TopologyInterim,// 42 · Team topologies in practice — 2024-2025
+    S23k_TopologyE2E,    // 43 · Vertical E2E ownership — 2026
+    Chapter08_Learned,   // 44 · Chapter 08 — What we learned
+    S29_Decisions,       // 45 · Three decisions we'd defend
+    S24_VegaWeb,         // 46 · Vega and Web are closer than they look
+    S29b_ProductLearnings, // 47 · Product learnings
+    S28_Verdict,         // 48 · The verdict (stats)
+    S30_EcosystemLags,   // 49 · Where the ecosystem still lags
+    Chapter09_WhereNow,  // 50 · Chapter 09 — Where we are now
+    S33_Roadmap,         // 51 · Where we are now
+    S34_AmazonFeature,   // 52 · Featured on Amazon Vega Developer Portal
+    SummitClosing,       // 53 · Surprisingly close
+  ];
+  return (
+    <deck-stage width="1280" height="720" data-variant="summit">
+      {slides.map((Slide, i) => <Slide key={i} />)}
+    </deck-stage>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('mount')).render(<Deck />);
+
+// Populate footer page numbers per slide based on DOM order, and renumber
+// each [data-screen-label] to match DOM order so Tweaks Navigate + slide
+// counters stay consistent when slides are reordered or inserted.
+setTimeout(() => {
+  const stage = document.querySelector('deck-stage');
+  if (!stage) return;
+  const slides = stage.querySelectorAll(':scope > [data-screen-label]');
+  const total = String(slides.length).padStart(2, '0');
+  slides.forEach((slide, i) => {
+    const idxStr = String(i + 1).padStart(2, '0');
+    const oldLabel = slide.getAttribute('data-screen-label') || `Slide ${i + 1}`;
+    const stripped = oldLabel.replace(/^\d+\s+/, '');
+    slide.setAttribute('data-screen-label', `${idxStr} ${stripped}`);
+    const pageno = slide.querySelector('.pageno');
+    if (pageno) pageno.textContent = `${idxStr} / ${total}`;
+  });
+
+  // ---- Builds on any slide with [data-build-max="N"].
+  // Step 0 = nothing revealed; steps 1..N reveal in sequence; after N,
+  // next click/key falls through to deck-stage's own slide navigation.
+  // Per-slide CSS reads `data-step` to decide what's visible.
+
+  function getActiveBuildSlide() {
+    const active = stage.querySelector('[data-deck-active]');
+    if (!active || !active.hasAttribute('data-build-max')) return null;
+    return active;
+  }
+  function getStep(slide) {
+    return parseInt(slide.getAttribute('data-step') || '0', 10);
+  }
+  function setStep(slide, n) {
+    slide.setAttribute('data-step', String(n));
+  }
+  function getMax(slide) {
+    return parseInt(slide.getAttribute('data-build-max') || '0', 10);
+  }
+
+  // Initialise every build slide to step 0.
+  stage.querySelectorAll('[data-build-max]').forEach(s => setStep(s, 0));
+
+  // Persist current slide across reloads. localStorage takes precedence
+  // over the URL hash so a reload always restores where you were, even if
+  // deck-stage's hash got reset by the host iframe.
+  const LS_KEY = 'react-summit-talk.slide';
+  try {
+    const saved = parseInt(localStorage.getItem(LS_KEY) || '', 10);
+    if (!isNaN(saved) && saved >= 0 && saved < slides.length) {
+      stage.goTo(saved);
+    }
+  } catch (e) {}
+  stage.addEventListener('slidechange', (e) => {
+    try { localStorage.setItem(LS_KEY, String(e.detail.index)); } catch (err) {}
+  });
+
+  // Reset step counter when LEAVING a build slide — so re-entering shows a
+  // clean empty state with no flash of items animating out.
+  stage.addEventListener('slidechange', (e) => {
+    const prev = e.detail && e.detail.previousSlide;
+    if (prev && prev.hasAttribute('data-build-max')) {
+      setStep(prev, 0);
+    }
+    // Also reset the slide we're entering (defensive — covers the first
+    // ever entry where previousSlide is null on init).
+    const curr = e.detail && e.detail.slide;
+    if (curr && curr.hasAttribute('data-build-max') && !curr.hasAttribute('data-step')) {
+      setStep(curr, 0);
+    }
+  });
+
+  const NEXT_KEYS = new Set(['ArrowRight', 'PageDown', ' ', 'Spacebar', 'Enter']);
+  const PREV_KEYS = new Set(['ArrowLeft', 'PageUp']);
+
+  // Intercept BEFORE deck-stage's own handler (capture phase).
+  window.addEventListener('keydown', (e) => {
+    const slide = getActiveBuildSlide();
+    if (!slide) return;
+    const step = getStep(slide), max = getMax(slide);
+    if (NEXT_KEYS.has(e.key) && step < max) {
+      setStep(slide, step + 1);
+      e.stopImmediatePropagation();
+      e.preventDefault();
+    } else if (PREV_KEYS.has(e.key) && step > 0) {
+      setStep(slide, step - 1);
+      e.stopImmediatePropagation();
+      e.preventDefault();
+    }
+  }, true);
+
+  // Click anywhere advances builds first, then falls through to slide nav.
+  window.addEventListener('click', (e) => {
+    const slide = getActiveBuildSlide();
+    if (!slide) return;
+    // Ignore clicks on the deck-stage overlay UI (prev/next buttons, etc.)
+    if (e.target.closest && e.target.closest('.overlay')) return;
+    // Ignore clicks on the Tweaks panel (slide nav, theme picker, etc.).
+    if (e.target.closest && (e.target.closest('[data-tweaks-panel]') || e.target.closest('.twk-panel') || !slide.contains(e.target))) return;
+    const step = getStep(slide), max = getMax(slide);
+    if (step < max) {
+      setStep(slide, step + 1);
+      e.stopImmediatePropagation();
+      e.preventDefault();
+    }
+  }, true);
+
+  // ---- Intercept deck-stage's own overlay prev/next buttons.
+  // They live in shadow DOM and call `_go` directly, so a window click
+  // listener can't stop them. Wrap the click handlers so they advance/
+  // retreat the build first, and only fall through to slide nav when
+  // the build is fully done (next) or unstarted (prev).
+  function wrapDeckButton(selector, direction /* +1 / -1 */) {
+    const btn = stage.shadowRoot && stage.shadowRoot.querySelector(selector);
+    if (!btn) return;
+    btn.addEventListener('click', (e) => {
+      const slide = getActiveBuildSlide();
+      if (!slide) return;
+      const step = getStep(slide), max = getMax(slide);
+      if (direction > 0 && step < max) {
+        setStep(slide, step + 1);
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      } else if (direction < 0 && step > 0) {
+        setStep(slide, step - 1);
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      }
+    }, true);
+  }
+  // The shadow tree may not be populated yet at the time we run; poll briefly.
+  const wrapTry = () => {
+    if (!stage.shadowRoot || !stage.shadowRoot.querySelector('.overlay .next')) {
+      return setTimeout(wrapTry, 80);
+    }
+    wrapDeckButton('.overlay .next', +1);
+    wrapDeckButton('.overlay .prev', -1);
+  };
+  wrapTry();
+
+  // Tap zones (mobile-style left/right halves) — same deal.
+  const wrapTapTry = () => {
+    if (!stage.shadowRoot) return setTimeout(wrapTapTry, 80);
+    const fwd = stage.shadowRoot.querySelector('.tapzone--fwd');
+    const back = stage.shadowRoot.querySelector('.tapzone--back');
+    if (!fwd || !back) return setTimeout(wrapTapTry, 80);
+    fwd.addEventListener('click', (e) => {
+      const slide = getActiveBuildSlide();
+      if (!slide) return;
+      const step = getStep(slide), max = getMax(slide);
+      if (step < max) { setStep(slide, step + 1); e.stopImmediatePropagation(); e.preventDefault(); }
+    }, true);
+    back.addEventListener('click', (e) => {
+      const slide = getActiveBuildSlide();
+      if (!slide) return;
+      const step = getStep(slide);
+      if (step > 0) { setStep(slide, step - 1); e.stopImmediatePropagation(); e.preventDefault(); }
+    }, true);
+  };
+  wrapTapTry();
+
+  // ============================================================
+  // PRESENTATION MODE — Full (35m) vs Short (20m)
+  // Slides can be marked "optional" (per-user via Tweaks, persisted
+  // by data-screen-label in localStorage; or hardcoded with
+  // data-optional on the <section>). In Short mode, sequential
+  // navigation (arrows / overlay buttons / tap zones) skips them.
+  // Direct jumps (Navigate list, number keys, Home/End) are honored.
+  // Press `S` anywhere to toggle Short/Full — works in fullscreen.
+  // ============================================================
+  const MODE_KEY = 'react-summit-talk.mode';
+  const OPT_KEY  = 'react-summit-talk.optionalLabels';
+
+  function getMode() {
+    try { return localStorage.getItem(MODE_KEY) === 'short' ? 'short' : 'full'; }
+    catch (e) { return 'full'; }
+  }
+  function setMode(m) {
+    try { localStorage.setItem(MODE_KEY, m); } catch (e) {}
+    window.dispatchEvent(new CustomEvent('presentationmodechange', { detail: { mode: m } }));
+    updateModeBadge();
+    flashModeHUD(m);
+  }
+  function getOptionalSet() {
+    try { return new Set(JSON.parse(localStorage.getItem(OPT_KEY) || '[]')); }
+    catch (e) { return new Set(); }
+  }
+  function isOptional(slide) {
+    if (!slide) return false;
+    if (slide.hasAttribute('data-optional')) return true;
+    const label = slide.getAttribute('data-screen-label') || '';
+    return getOptionalSet().has(label);
+  }
+  // Expose for the Tweaks panel.
+  window.__presentation = { getMode, setMode, getOptionalSet, isOptional, MODE_KEY, OPT_KEY };
+
+  // Skip optional slides on sequential nav while in short mode.
+  let _skipping = false;
+  stage.addEventListener('slidechange', (e) => {
+    if (_skipping) return;
+    if (getMode() !== 'short') return;
+    const d = e.detail || {};
+    if (d.previousIndex < 0 || d.reason === 'init') return;
+    const dir = Math.sign(d.index - d.previousIndex);
+    if (dir === 0) return;
+    // Only auto-skip on sequential nav (±1). Direct jumps honor user intent.
+    if (Math.abs(d.index - d.previousIndex) !== 1) return;
+    if (!isOptional(d.slide)) return;
+    const all = [...stage.querySelectorAll(':scope > [data-screen-label]')];
+    let target = d.index + dir;
+    while (target >= 0 && target < all.length && isOptional(all[target])) target += dir;
+    if (target < 0 || target >= all.length) return; // hit an edge — stay put
+    _skipping = true;
+    setTimeout(() => { stage.goTo(target); _skipping = false; }, 0);
+  });
+
+  // Keyboard: `S` toggles mode. Works in fullscreen where Tweaks is hidden.
+  window.addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const t = e.target;
+    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    if (e.key === 's' || e.key === 'S') {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      setMode(getMode() === 'short' ? 'full' : 'short');
+    }
+  }, true);
+
+  // SHORT badge — pinned inside the deck-stage shadow root so it remains
+  // visible during fullscreen (where sibling DOM is hidden).
+  function ensureBadge() {
+    if (!stage.shadowRoot) return null;
+    let badge = stage.shadowRoot.querySelector('[data-mode-badge]');
+    if (badge) return badge;
+    badge = document.createElement('div');
+    badge.setAttribute('data-mode-badge', '');
+    badge.style.cssText = [
+      'position:fixed', 'top:16px', 'right:16px',
+      'padding:6px 10px',
+      "font:600 11px/1 ui-monospace,'SF Mono',Menlo,Consolas,monospace",
+      'letter-spacing:0.14em',
+      'color:#fff',
+      'background:rgba(217,83,28,0.92)',
+      'border-radius:999px',
+      'pointer-events:none', 'user-select:none',
+      'opacity:0',
+      'transition:opacity 240ms ease',
+      'z-index:2147483647',
+    ].join(';');
+    badge.textContent = 'SHORT';
+    stage.shadowRoot.appendChild(badge);
+    return badge;
+  }
+  function updateModeBadge() {
+    const badge = ensureBadge();
+    if (!badge) return;
+    badge.style.opacity = getMode() === 'short' ? '1' : '0';
+  }
+
+  // Transient HUD when mode toggles via keyboard.
+  function flashModeHUD(m) {
+    if (!stage.shadowRoot) return;
+    let hud = stage.shadowRoot.querySelector('[data-mode-hud]');
+    if (!hud) {
+      hud = document.createElement('div');
+      hud.setAttribute('data-mode-hud', '');
+      hud.style.cssText = [
+        'position:fixed', 'left:50%', 'top:50%',
+        'transform:translate(-50%,-50%) scale(0.96)',
+        'padding:14px 22px',
+        "font:700 18px/1.2 'Compasse',system-ui,sans-serif",
+        'letter-spacing:0.06em',
+        'color:#fff',
+        'background:rgba(0,0,0,0.78)',
+        'border-radius:12px',
+        'pointer-events:none', 'user-select:none',
+        'opacity:0',
+        'transition:opacity 200ms ease, transform 200ms ease',
+        'z-index:2147483647',
+      ].join(';');
+      stage.shadowRoot.appendChild(hud);
+    }
+    hud.textContent = m === 'short' ? 'SHORT (20 min)' : 'FULL (35 min)';
+    requestAnimationFrame(() => {
+      hud.style.opacity = '1';
+      hud.style.transform = 'translate(-50%,-50%) scale(1)';
+    });
+    clearTimeout(hud._t);
+    hud._t = setTimeout(() => {
+      hud.style.opacity = '0';
+      hud.style.transform = 'translate(-50%,-50%) scale(0.96)';
+    }, 1000);
+  }
+
+  const initBadge = () => {
+    if (!stage.shadowRoot) return setTimeout(initBadge, 80);
+    updateModeBadge();
+    injectModeButton();
+  };
+  initBadge();
+
+  // Inject a mode toggle into the deck overlay, just before fullscreen.
+  // Lives in the page (not deck-stage.js) because the presentation-mode
+  // concept is app-specific.
+  function injectModeButton() {
+    if (!stage.shadowRoot) return setTimeout(injectModeButton, 80);
+    const overlay = stage.shadowRoot.querySelector('.overlay');
+    const fsBtn = overlay && overlay.querySelector('.fullscreen');
+    if (!overlay || !fsBtn) return setTimeout(injectModeButton, 80);
+    if (overlay.querySelector('.mode-btn')) return;
+
+    const style = document.createElement('style');
+    style.textContent = `
+      .btn.mode-btn {
+        padding: 0 9px 0 7px;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        font-variant-numeric: tabular-nums;
+        color: rgba(255,255,255,0.78);
+      }
+      .btn.mode-btn svg { width: 13px; height: 13px; }
+      .btn.mode-btn[data-short] {
+        color: #fff;
+        background: rgba(249,101,34,0.88);
+      }
+      .btn.mode-btn[data-short]:hover {
+        background: rgba(249,101,34,1);
+      }
+      .btn.mode-btn[data-short]:active {
+        background: rgba(229,82,18,1);
+      }
+    `;
+    stage.shadowRoot.appendChild(style);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn mode-btn';
+    btn.innerHTML = `
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 1.6h4"/>
+        <circle cx="8" cy="9" r="5.4"/>
+        <path d="M8 6v3l2 1.4"/>
+      </svg>
+      <span class="mode-label">35m</span>
+    `;
+    btn.addEventListener('click', () => setMode(getMode() === 'short' ? 'full' : 'short'));
+    fsBtn.parentNode.insertBefore(btn, fsBtn);
+
+    const update = () => {
+      const m = getMode();
+      const label = btn.querySelector('.mode-label');
+      if (label) label.textContent = m === 'short' ? '20m' : '35m';
+      if (m === 'short') {
+        btn.setAttribute('data-short', '');
+        btn.setAttribute('aria-label', 'Switch to full-length presentation');
+        btn.setAttribute('title', 'Short (20m) — click for Full (S)');
+      } else {
+        btn.removeAttribute('data-short');
+        btn.setAttribute('aria-label', 'Switch to short presentation');
+        btn.setAttribute('title', 'Full (35m) — click for Short (S)');
+      }
+    };
+    update();
+    window.addEventListener('presentationmodechange', update);
+  }
+}, 300);
+</script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "dark"
+}/*EDITMODE-END*/;
+
+function TweaksApp() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [slides, setSlides] = React.useState([]);
+  const [activeIdx, setActiveIdx] = React.useState(0);
+  const [mode, setModeState] = React.useState(() => {
+    try { return localStorage.getItem('react-summit-talk.mode') === 'short' ? 'short' : 'full'; }
+    catch (e) { return 'full'; }
+  });
+  const [optionalLabels, setOptionalLabels] = React.useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem('react-summit-talk.optionalLabels') || '[]')); }
+    catch (e) { return new Set(); }
+  });
+
+  const applyMode = (m) => {
+    setModeState(m);
+    if (window.__presentation && window.__presentation.setMode) window.__presentation.setMode(m);
+    else { try { localStorage.setItem('react-summit-talk.mode', m); } catch (e) {} }
+  };
+  const toggleOptional = (label) => {
+    setOptionalLabels(prev => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label); else next.add(label);
+      try { localStorage.setItem('react-summit-talk.optionalLabels', JSON.stringify([...next])); } catch (e) {}
+      return next;
+    });
+  };
+
+  // Reflect keyboard `S` toggles from the head script.
+  React.useEffect(() => {
+    const onChange = (e) => setModeState(e.detail.mode);
+    window.addEventListener('presentationmodechange', onChange);
+    return () => window.removeEventListener('presentationmodechange', onChange);
+  }, []);
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute('data-theme', tweaks.theme);
+  }, [tweaks.theme]);
+
+  // Persist Tweaks open/closed state across reloads. Track activate/deactivate
+  // messages, mirror to localStorage, and re-open on next page load.
+  React.useEffect(() => {
+    const KEY = 'tweaks.open';
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') {
+        try { localStorage.setItem(KEY, '1'); } catch (err) {}
+      } else if (t === '__deactivate_edit_mode' || t === '__edit_mode_dismissed') {
+        try { localStorage.setItem(KEY, '0'); } catch (err) {}
+      }
+    };
+    window.addEventListener('message', onMsg);
+
+    // If panel was open last time, reopen after the panel mounts.
+    // We post into our own window so the TweaksPanel listener picks it up;
+    // a short delay covers the case where the panel hasn't registered yet.
+    let wasOpen = false;
+    try { wasOpen = localStorage.getItem(KEY) === '1'; } catch (err) {}
+    if (wasOpen) {
+      const id = setTimeout(() => {
+        window.postMessage({ type: '__activate_edit_mode' }, '*');
+      }, 60);
+      return () => { clearTimeout(id); window.removeEventListener('message', onMsg); };
+    }
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  // Discover slides from <deck-stage> + listen for navigation.
+  React.useEffect(() => {
+    let stage = null;
+    let raf = 0;
+    const readSlides = () => {
+      stage = document.querySelector('deck-stage');
+      if (!stage) { raf = requestAnimationFrame(readSlides); return; }
+      const items = [...stage.querySelectorAll(':scope > [data-screen-label]')]
+        .map((el, i) => ({ idx: i, label: el.getAttribute('data-screen-label') || `Slide ${i + 1}` }));
+      setSlides(items);
+      setActiveIdx(typeof stage.index === 'number' ? stage.index : 0);
+    };
+    readSlides();
+    const onChange = (e) => {
+      if (typeof e?.detail?.index === 'number') setActiveIdx(e.detail.index);
+    };
+    document.addEventListener('slidechange', onChange);
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener('slidechange', onChange);
+    };
+  }, []);
+
+  const goTo = (i) => {
+    const stage = document.querySelector('deck-stage');
+    if (stage && typeof stage.goTo === 'function') stage.goTo(i);
+  };
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <style>{`
+        /* Boost section label contrast — base is too faint. */
+        .twk-sect { color: rgba(41,38,27,.85) !important; font-size: 11px !important; }
+        /* Panel: a touch more transparent. */
+        .twk-panel { background: rgba(250,249,247,.4) !important; }
+      `}</style>
+      <TweakSection label="Navigate">
+        {(() => {
+          const optionalCount = slides.filter(s => optionalLabels.has(s.label) || (() => {
+            const el = document.querySelector(`deck-stage > [data-screen-label="${s.label}"]`);
+            return el && el.hasAttribute('data-optional');
+          })()).length;
+          const activeCount = slides.length - optionalCount;
+          return (
+            <div style={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              padding: '0 4px 6px',
+              font: "500 10px/1.2 ui-monospace,'SF Mono',Menlo,Consolas,monospace",
+              letterSpacing: '0.08em', textTransform: 'uppercase',
+              color: 'rgba(41,38,27,0.55)',
+            }}>
+              <span>{slides.length} slides{mode === 'short' && optionalCount > 0 ? ` → ${activeCount} in short` : ''}</span>
+              <span style={{ opacity: 0.7 }}>tap ● to skip</span>
+            </div>
+          );
+        })()}
+        <div style={{display: 'flex', flexDirection: 'column', gap: 2, maxHeight: 168, overflowY: 'auto', margin: '0 -4px', padding: '0 4px'}}>
+          {slides.map(s => {
+            const active = s.idx === activeIdx;
+            const hardOpt = (() => {
+              const el = document.querySelector(`deck-stage > [data-screen-label="${s.label}"]`);
+              return el && el.hasAttribute('data-optional');
+            })();
+            const isOpt = hardOpt || optionalLabels.has(s.label);
+            const dim = mode === 'short' && isOpt;
+            return (
+              <div key={s.idx} style={{ display: 'flex', alignItems: 'stretch', gap: 2 }}>
+                <button
+                  onClick={() => goTo(s.idx)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10,
+                    flex: 1,
+                    padding: '7px 10px',
+                    border: 'none',
+                    borderRadius: 4,
+                    background: active ? 'rgba(217,83,28,0.22)' : 'transparent',
+                    color: active ? '#B33F11' : 'rgba(41,38,27,0.85)',
+                    font: `${active ? 700 : 500} 12px/1.2 'Compasse', system-ui, sans-serif`,
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    letterSpacing: '0.01em',
+                    opacity: dim ? 0.42 : 1,
+                  }}
+                  onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = 'rgba(0,0,0,0.05)'; }}
+                  onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = 'transparent'; }}
+                >
+                  <span style={{
+                    display: 'inline-block', width: 22,
+                    textAlign: 'right',
+                    fontVariantNumeric: 'tabular-nums',
+                    opacity: active ? 1 : 0.55,
+                  }}>
+                    {String(s.idx + 1).padStart(2, '0')}
+                  </span>
+                  <span style={{
+                    flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                    textDecoration: dim ? 'line-through' : 'none',
+                  }}>
+                    {s.label.replace(/^\d+\s+/, '')}
+                  </span>
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); if (!hardOpt) toggleOptional(s.label); }}
+                  title={hardOpt
+                    ? 'Marked optional in source (data-optional)'
+                    : (isOpt ? 'Required in short mode — click to include' : 'Optional in short mode — click to skip')}
+                  disabled={hardOpt}
+                  style={{
+                    width: 22, height: 22, padding: 0,
+                    alignSelf: 'center',
+                    borderRadius: '50%',
+                    border: `1.5px solid ${isOpt ? 'rgba(217,83,28,0.95)' : 'rgba(41,38,27,0.25)'}`,
+                    background: isOpt ? 'rgba(217,83,28,0.95)' : 'transparent',
+                    cursor: hardOpt ? 'not-allowed' : 'pointer',
+                    flexShrink: 0,
+                    transition: 'background 120ms ease, border-color 120ms ease',
+                  }}
+                  aria-label={isOpt ? 'Marked optional' : 'Mark optional'}
+                  aria-pressed={isOpt}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </TweakSection>
+      <TweakSection label="Mode">
+        <TweakRadio
+          label={`Length${mode === 'short' ? ' — ~20 min' : ' — ~35 min'}`}
+          value={mode}
+          options={['full', 'short']}
+          onChange={applyMode}
+        />
+        <div style={{
+          padding: '6px 2px 0',
+          font: "400 11px/1.4 'Compasse', system-ui, sans-serif",
+          color: 'rgba(41,38,27,0.62)',
+        }}>
+          Press <kbd style={{
+            display: 'inline-block', padding: '1px 5px', minWidth: 14, textAlign: 'center',
+            font: "600 10px/1 ui-monospace,'SF Mono',Menlo,Consolas,monospace",
+            background: 'rgba(41,38,27,0.1)', borderRadius: 3, color: 'rgba(41,38,27,0.85)',
+          }}>S</kbd> anywhere to toggle (also in fullscreen).
+        </div>
+      </TweakSection>
+      <TweakSection label="Appearance">
+        <TweakRadio
+          label="Theme"
+          value={tweaks.theme}
+          options={['dark', 'light']}
+          onChange={(v) => setTweak('theme', v)}
+        />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+document.documentElement.setAttribute('data-theme', TWEAK_DEFAULTS.theme);
+
+const tweakRoot = document.createElement('div');
+document.body.appendChild(tweakRoot);
+ReactDOM.createRoot(tweakRoot).render(<TweaksApp />);
+</script>
+</body>
+</html>
