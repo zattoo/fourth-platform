@@ -19,5 +19,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/) loosely â
 - GitHub Action that auto-deploys to GitHub Pages on every push to `main`.
 - Standalone single-file build at `dist/the-fourth-platform.html` for offline presentation.
 
-[Unreleased]: https://github.com/gotbahn/fourth-platform/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/gotbahn/fourth-platform/releases/tag/v1.0.0
+[Unreleased]: https://github.com/zattoo/fourth-platform/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/zattoo/fourth-platform/releases/tag/v1.0.0

@@ -26,20 +26,6 @@ Frontend and platform engineers working on applications that must run across mul
 
 Also useful for technical leads and engineering managers responsible for platform strategy, team alignment, and long-term scalability, who are considering a shift from platform-specific development toward a shared multiplatform architecture.
 
-## Tellings
-
-### Given
-
-- 2026-03 — [Amazon Developer blog: *How Vega enabled Zattoo to streamline TV app development*](https://developer.amazon.com/apps-and-games/blogs/2026/03/how-vega-enabled-zattoo-streamline-tv-app-development)
-- 2026-04-27 — [Callstack webinar, *From Native to React Native for TV*](https://www.youtube.com/watch?v=VbPAFebIUQo) (Wrocław, with Pavel Verkhovskyi)
-- 2026-05-19 — [React Berlin Meetup](https://guild.host/events/react-berlin-meetup-tmi8du), *The Fourth Platform* (Berlin)
-
-### Planned
-
-- 2026-06-11 → 06-15 — [React Summit 2026](https://reactsummit.com/) (Amsterdam, remote pre-recorded)
-- 2026-07-08 → 07-10 — [WeAreDevelopers World Congress 2026](https://www.wearedevelopers.com/world-congress) (Berlin, recorded online session)
-- 2026-10-07 → 10-09 — [next.app devcon 2026](https://www.nextappcon.com/) (Berlin)
-
 ## Duration
 
 - Short version: 20 minutes
@@ -53,7 +39,7 @@ Multiplatform · React Native · Vega · Platform Architecture · Cross-Platform
 
 ## View the deck
 
-- **Live**: <https://gotbahn.github.io/fourth-platform/>
+- **Live**: <https://zattoo.github.io/fourth-platform/>
 - **Locally**: any static server will do
 
 ```bash
