@@ -2,13 +2,27 @@
 // Used by React Summit Talk.html. Reuses styles from deck.css.
 // 1280 × 720 slide canvas.
 
-// Event breadcrumb — selected via the Tweaks panel ("Event"). Empty → none.
+// Event breadcrumb — picked in the deck toolbar ("Event"). Empty → none.
+// `date` is display text; `on` is the talk day (ISO) used to pick the default.
 const VENUES = {
-  'react-summit-2026': { name: 'React Summit', date: 'Jun 2026' },
-  'reactcon-berlin-2026': { name: 'reactCon · next.app devcon', date: '8 Oct 2026' },
-  'reactjsday-2026': { name: 'reactjsday', date: '19 Nov 2026' },
-  'react-day-berlin-2026': { name: 'React Day Berlin', date: 'Dec 2026' },
+  'react-summit-2026': { name: 'React Summit', date: 'Jun 2026', on: '2026-06-11' },
+  'reactcon-berlin-2026': { name: 'reactCon · next.app devcon', date: '8 Oct 2026', on: '2026-10-08' },
+  'reactjsday-2026': { name: 'reactjsday', date: '19 Nov 2026', on: '2026-11-19' },
+  'react-day-berlin-2026': { name: 'React Day Berlin', date: 'Dec 2026', on: '2026-12-04' },
 };
+// Today's local date as YYYY-MM-DD, so the event day itself still counts as upcoming.
+function todayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+// Earliest venue on today or later; '' if all are past.
+function nextVenueId() {
+  const today = todayISO();
+  const upcoming = Object.entries(VENUES)
+    .filter(([, v]) => v.on >= today)
+    .sort(([, a], [, b]) => a.on.localeCompare(b.on));
+  return upcoming.length ? upcoming[0][0] : '';
+}
 const venueStore = {
   id: '',
   subs: new Set(),
@@ -2004,7 +2018,7 @@ function S15_SWOT() {
       items: [
         'Vega was still immature and timeline was uncertain',
         'Performance risk could undermine adoption',
-        'Fire TV was business-critical, especially in Germany',
+        'Missing Fire TV would threaten the business, especially in Germany',
         'Users and tenants expected support for Amazon\u2019s ecosystem',
       ],
     },
@@ -5295,7 +5309,7 @@ function S34_AmazonFeature() {
   );
 }
 Object.assign(window, {
-  VENUES, venueStore, VenueBrand,
+  VENUES, nextVenueId, todayISO, venueStore, VenueBrand,
   Footer, ChapterDivider, Chapter01_Zattoo, Chapter02_Challenge, Chapter03_Failed, Chapter04_Catalyst, Chapter05_Starting, Chapter06_GreenLight, Chapter07_Migration, Chapter08_Learned, Chapter09_WhereNow, S19b_VegaFirstBoot, S22b_TestSuite,
   S03_Everywhere, S04_Moments, S05_Niche, S06_Matrix, S08_Quote, S09_Duplication, S10_PWA, S11_Candidates,
   S13_NDA, S14_WhyMatters, S15_SWOT, S16_StrategicImportance, S23c_OneCodebase, S17_PoC, S17b_PoCScreens, S18_Signal, S18b_RIF,

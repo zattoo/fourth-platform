@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/) loosely â
 
 ## [Unreleased]
 
+### Added
+- `sw.js` service worker: the published deck works offline after one online visit (deck files, React/Babel from unpkg and Google Fonts precached). Registered from `fourth-platform.html` on `github.io` and `localhost` only.
+- Event breadcrumb in every slide footer, picked from an "Event" select in the deck toolbar (after the 20m/35m toggle). Defaults to the next upcoming event: each venue in `VENUES` now carries an ISO talk day (`on`), and `nextVenueId()` picks the earliest one today or later. A stored pick is kept until its day passes; "No event" is always respected.
+- "Offline ready" indicator in the deck toolbar, shown once the service worker is active.
+
 ### Changed
 - "The invitation" slide: reworded the demo line to "Amazon shared their vision for a new operating system powering the next generation of Fire TV devices."
 - "The invitation" slide: removed the "Away from Android-based Fire OS" tile; grid now 2-up (Vega platform + React Native framework).

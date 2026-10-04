@@ -14,6 +14,12 @@
      since we're using deck-stage's own overlay counter. */
   deck-stage[data-variant="summit"] .deck-footer .pager { display: none; }
 </style>
+<script>
+  if ('serviceWorker' in navigator && /(^|\.)github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname)) {
+    navigator.serviceWorker.register('sw.js');
+    navigator.storage?.persist?.();
+  }
+</script>
 </head>
 <body>
 
@@ -397,12 +403,104 @@ setTimeout(() => {
     }, 1000);
   }
 
+  // Event selector config — declared before initBadge() runs.
+  var VENUE_KEY = 'fourth-platform:venue';
+  applyVenue(getVenue());
+
   const initBadge = () => {
     if (!stage.shadowRoot) return setTimeout(initBadge, 80);
     updateModeBadge();
     injectModeButton();
   };
   initBadge();
+
+  // Event selector in the deck overlay, right after the 20m/35m toggle.
+  // Persists in localStorage so it survives in the standalone build too.
+  // Stored '' ("No event") is respected. Nothing stored, a past venue, or one
+  // no longer in VENUES falls back to the next upcoming venue.
+  function getVenue() {
+    const venues = window.VENUES || {};
+    const next = window.nextVenueId ? window.nextVenueId() : '';
+    let stored = null;
+    try { stored = localStorage.getItem(VENUE_KEY); } catch (e) {}
+    if (stored === null) return next;
+    if (stored === '') return '';
+    const v = venues[stored];
+    if (!v || (window.todayISO && v.on < window.todayISO())) return next;
+    return stored;
+  }
+  function applyVenue(id, persist) {
+    if (persist) { try { localStorage.setItem(VENUE_KEY, id); } catch (e) {} }
+    const trySet = () => window.venueStore ? window.venueStore.set(id) : setTimeout(trySet, 80);
+    trySet();
+  }
+
+  function injectVenueSelect(fsBtn) {
+    const overlay = fsBtn.parentNode;
+    if (overlay.querySelector('.venue-select')) return;
+    const style = document.createElement('style');
+    style.textContent = `
+      .venue-select {
+        appearance: none; -webkit-appearance: none;
+        height: 28px; max-width: 190px;
+        padding: 0 24px 0 10px; margin: 0 2px;
+        border: 0; border-radius: 999px;
+        background: rgba(255,255,255,0.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='white' stroke-opacity='.7' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 9px center;
+        color: rgba(255,255,255,0.78);
+        font-family: inherit; font-size: 11px; font-weight: 600; line-height: 28px; letter-spacing: 0.04em;
+        text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+        cursor: pointer;
+      }
+      .venue-select:hover { background-color: rgba(255,255,255,0.16); color: #fff; }
+      .venue-select:focus-visible { outline: 2px solid rgba(249,101,34,0.9); outline-offset: 1px; }
+      .venue-select option { color: #1a1a1a; }
+    `;
+    overlay.getRootNode().appendChild(style);
+    const sel = document.createElement('select');
+    sel.className = 'venue-select';
+    sel.setAttribute('aria-label', 'Event');
+    sel.title = 'Event shown in slide footers';
+    const fill = () => {
+      if (!window.VENUES) return setTimeout(fill, 80);
+      const opts = [['', 'No event'], ...Object.entries(window.VENUES).map(([id, v]) => [id, `${v.name} · ${v.date}`])];
+      sel.innerHTML = opts.map(([v, l]) => `<option value="${v}">${l}</option>`).join('');
+      sel.value = getVenue();
+    };
+    fill();
+    sel.addEventListener('change', () => applyVenue(sel.value, true));
+    ['keydown', 'click', 'mousedown', 'pointerdown'].forEach(t => sel.addEventListener(t, e => e.stopPropagation()));
+    overlay.insertBefore(sel, fsBtn);
+    injectOfflineBadge(overlay);
+  }
+
+  // "Offline ready" chip — hidden until the service worker is active.
+  // Never shows in the Claude Design preview (no SW registered there).
+  function injectOfflineBadge(overlay) {
+    if (overlay.querySelector('.offline-badge')) return;
+    const style = document.createElement('style');
+    style.textContent = `
+      .offline-badge {
+        display: none; align-items: center; gap: 5px;
+        height: 28px; padding: 0 9px 0 8px; margin: 0 2px;
+        font-family: inherit; font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+        color: rgba(255,255,255,0.78); white-space: nowrap; user-select: none;
+      }
+      .offline-badge.is-ready { display: inline-flex; }
+      .offline-badge::before {
+        content: ''; width: 6px; height: 6px; border-radius: 50%;
+        background: rgb(60,161,86);
+      }
+    `;
+    overlay.getRootNode().appendChild(style);
+    const badge = document.createElement('span');
+    badge.className = 'offline-badge';
+    badge.textContent = 'Offline ready';
+    badge.title = 'Deck is cached — works without network';
+    overlay.appendChild(badge);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(() => badge.classList.add('is-ready')).catch(() => {});
+    }
+  }
 
   // Inject a mode toggle into the deck overlay, just before fullscreen.
   // Lives in the page (not deck-stage.js) because the presentation-mode
@@ -452,6 +550,7 @@ setTimeout(() => {
     `;
     btn.addEventListener('click', () => setMode(getMode() === 'short' ? 'full' : 'short'));
     fsBtn.parentNode.insertBefore(btn, fsBtn);
+    injectVenueSelect(fsBtn);
 
     const update = () => {
       const m = getMode();
@@ -475,8 +574,7 @@ setTimeout(() => {
 
 <script type="text/babel">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "dark",
-  "venue": ""
+  "theme": "dark"
 }/*EDITMODE-END*/;
 
 function TweaksApp() {
@@ -517,9 +615,6 @@ function TweaksApp() {
     document.documentElement.setAttribute('data-theme', tweaks.theme);
   }, [tweaks.theme]);
 
-  React.useEffect(() => {
-    window.venueStore && window.venueStore.set(tweaks.venue || '');
-  }, [tweaks.venue]);
 
   // Persist Tweaks open/closed state across reloads. Track activate/deactivate
   // messages, mirror to localStorage, and re-open on next page load.
@@ -699,12 +794,6 @@ function TweaksApp() {
           value={tweaks.theme}
           options={['dark', 'light']}
           onChange={(v) => setTweak('theme', v)}
-        />
-        <TweakSelect
-          label="Event"
-          value={tweaks.venue || ''}
-          options={[{value: '', label: 'None'}, ...Object.entries(window.VENUES || {}).map(([id, v]) => ({value: id, label: `${v.name} · ${v.date}`}))]}
-          onChange={(v) => setTweak('venue', v)}
         />
       </TweakSection>
     </TweaksPanel>
