@@ -2,6 +2,32 @@
 // Used by React Summit Talk.html. Reuses styles from deck.css.
 // 1280 × 720 slide canvas.
 
+// Event breadcrumb — selected via the Tweaks panel ("Event"). Empty → none.
+const VENUES = {
+  'react-summit-2026': { name: 'React Summit', date: 'Jun 2026' },
+  'reactcon-berlin-2026': { name: 'reactCon · next.app devcon', date: '8 Oct 2026' },
+  'reactjsday-2026': { name: 'reactjsday', date: '19 Nov 2026' },
+  'react-day-berlin-2026': { name: 'React Day Berlin', date: 'Dec 2026' },
+};
+const venueStore = {
+  id: '',
+  subs: new Set(),
+  set(id) { this.id = VENUES[id] ? id : ''; this.subs.forEach(fn => fn(this.id)); },
+};
+function venueLabel(id) {
+  const v = VENUES[id];
+  return v ? `${v.name} · ${v.date}` : '';
+}
+function useVenueLabel() {
+  const [id, setId] = React.useState(venueStore.id);
+  React.useEffect(() => { venueStore.subs.add(setId); return () => venueStore.subs.delete(setId); }, []);
+  return venueLabel(id);
+}
+function VenueBrand({ prefix = '' }) {
+  const label = useVenueLabel();
+  return label ? <span style={{color: 'var(--z-text-secondary)'}}>{prefix}{label}</span> : null;
+}
+
 // Reusable footer
 function Footer({ beat, beatNum }) {
   return (
@@ -11,7 +37,7 @@ function Footer({ beat, beatNum }) {
         <span style={{margin: '0 12px', opacity: 0.4}}>·</span>
         <span>{beat}</span>
       </div>
-      <div className="brand"></div>
+      <div className="brand"><VenueBrand /></div>
     </div>
   );
 }
@@ -1782,7 +1808,7 @@ function S11_Candidates() {
 // ─── S13 · The invitation ────────────────────────────────────────────
 function S13_NDA() {
   return (
-    <div className="slide invitation-slide" data-screen-label="04. The invitation" data-build-max="3">
+    <div className="slide invitation-slide" data-screen-label="04. The invitation" data-build-max="2">
       <style>{`
         .invitation-slide .invite-title {
           display: inline-flex;
@@ -1815,9 +1841,9 @@ function S13_NDA() {
           <img className="invite-amz" src="assets/amazon-logo.png" alt="Amazon" />
         </h2>
         <p className="deck-text" style={{maxWidth: 600, fontSize: 24}}>
-          Amazon called us in alongside a handful of streaming developers to a demo at their Berlin office. They laid out the vision. <em>Mind-blowing.</em>
+          Amazon shared their vision for a new operating system powering the next generation of Fire TV devices.
         </p>
-        <div className="cat-tiles" style={{marginTop: 56, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16}}>
+        <div className="cat-tiles" style={{marginTop: 56, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16}}>
           <style>{`
             .invitation-slide .cat-tile {
               position: relative;
@@ -1833,8 +1859,7 @@ function S13_NDA() {
               will-change: opacity, transform;
             }
             .invitation-slide[data-step="1"] .cat-tile:nth-of-type(-n+1),
-            .invitation-slide[data-step="2"] .cat-tile:nth-of-type(-n+2),
-            .invitation-slide[data-step="3"] .cat-tile {
+            .invitation-slide[data-step="2"] .cat-tile {
               opacity: 1;
               transform: translateY(0);
             }
@@ -1875,12 +1900,6 @@ function S13_NDA() {
               text-wrap: pretty;
             }
           `}</style>
-
-          <div className="cat-tile cat-tile--image">
-            <div className="label-tag">The shift</div>
-            <div className="cat-body">Away from Android-based Fire OS</div>
-            <img className="cat-photo" src="assets/android-sad.png" alt="Crying Android" />
-          </div>
 
           <div className="cat-tile cat-tile--image">
             <div className="label-tag">The new platform</div>
@@ -5159,6 +5178,8 @@ function S33_Roadmap() {
 }
 
 // ─── S34 · Featured on Amazon's Vega Developer Portal ─────────────────
+// TODO: add a QR code linking to the Amazon case-study article
+//   (https://developer.amazon.com/apps-and-games/blogs/2026/03/how-vega-enabled-zattoo-streamline-tv-app-development)
 function S34_AmazonFeature() {
   return (
     <div className="slide amazon-feature-slide" data-screen-label="09. Featured on Amazon Vega">
@@ -5274,6 +5295,7 @@ function S34_AmazonFeature() {
   );
 }
 Object.assign(window, {
+  VENUES, venueStore, VenueBrand,
   Footer, ChapterDivider, Chapter01_Zattoo, Chapter02_Challenge, Chapter03_Failed, Chapter04_Catalyst, Chapter05_Starting, Chapter06_GreenLight, Chapter07_Migration, Chapter08_Learned, Chapter09_WhereNow, S19b_VegaFirstBoot, S22b_TestSuite,
   S03_Everywhere, S04_Moments, S05_Niche, S06_Matrix, S08_Quote, S09_Duplication, S10_PWA, S11_Candidates,
   S13_NDA, S14_WhyMatters, S15_SWOT, S16_StrategicImportance, S23c_OneCodebase, S17_PoC, S17b_PoCScreens, S18_Signal, S18b_RIF,

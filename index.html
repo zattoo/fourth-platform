@@ -475,7 +475,8 @@ setTimeout(() => {
 
 <script type="text/babel">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "dark"
+  "theme": "dark",
+  "venue": ""
 }/*EDITMODE-END*/;
 
 function TweaksApp() {
@@ -515,6 +516,10 @@ function TweaksApp() {
   React.useEffect(() => {
     document.documentElement.setAttribute('data-theme', tweaks.theme);
   }, [tweaks.theme]);
+
+  React.useEffect(() => {
+    window.venueStore && window.venueStore.set(tweaks.venue || '');
+  }, [tweaks.venue]);
 
   // Persist Tweaks open/closed state across reloads. Track activate/deactivate
   // messages, mirror to localStorage, and re-open on next page load.
@@ -694,6 +699,12 @@ function TweaksApp() {
           value={tweaks.theme}
           options={['dark', 'light']}
           onChange={(v) => setTweak('theme', v)}
+        />
+        <TweakSelect
+          label="Event"
+          value={tweaks.venue || ''}
+          options={[{value: '', label: 'None'}, ...Object.entries(window.VENUES || {}).map(([id, v]) => ({value: id, label: `${v.name} · ${v.date}`}))]}
+          onChange={(v) => setTweak('venue', v)}
         />
       </TweakSection>
     </TweaksPanel>

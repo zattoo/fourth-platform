@@ -13,7 +13,7 @@ function SummitFooter({ beat }) {
         <span style={{margin: '0 12px', opacity: 0.4}}>·</span>
         <span>{beat}</span>
       </div>
-      <div className="brand"></div>
+      <div className="brand"><VenueBrand /></div>
     </div>
   );
 }
@@ -213,7 +213,7 @@ function SummitCover() {
         </div>
         <div className="cover-footer">
           <span>Native → React Native · 2022 → 2026</span>
-          <span></span>
+          <span><VenueBrand /></span>
         </div>
       </div>
     </div>
@@ -313,7 +313,7 @@ function SummitClosing() {
         </div>
         <div className="cover-footer">
           <span className="live-dot is-prod">In production</span>
-          <span>Thank you · @zattoo</span>
+          <span>Thank you · @zattoo<VenueBrand prefix=" · " /></span>
         </div>
       </div>
     </div>

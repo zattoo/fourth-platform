@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/) loosely â
 
 ## [Unreleased]
 
+### Changed
+- "The invitation" slide: reworded the demo line to "Amazon shared their vision for a new operating system powering the next generation of Fire TV devices."
+- "The invitation" slide: removed the "Away from Android-based Fire OS" tile; grid now 2-up (Vega platform + React Native framework).
+
+### Removed
+- Unused `assets/android-sad.png`.
+
 ## [1.0.0] â€” 2026-05-22
 
 ### Added
