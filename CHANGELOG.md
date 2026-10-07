@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/) loosely â
 - "The invitation" slide: removed the "Away from Android-based Fire OS" tile; grid now 2-up (Vega platform + React Native framework).
 
 ### Removed
+- "Transforming the organisation" slide (Org chapter opener).
 - Unused `assets/android-sad.png`.
 
 ## [1.0.0] â€” 2026-05-22
