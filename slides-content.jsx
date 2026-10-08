@@ -4,10 +4,12 @@
 
 // Event breadcrumb — picked in the deck toolbar ("Event"). Empty → none.
 // `date` is display text; `on` is the talk day (ISO) used to pick the default.
+// Optional `qr`: { src, caption } shown on the closing "Questions?" slide.
 const VENUES = {
   'react-summit-2026': { name: 'React Summit', date: 'Jun 2026', on: '2026-06-11' },
   'reactcon-berlin-2026': { name: 'reactCon · next.app devcon', date: '8 Oct 2026', on: '2026-10-08' },
-  'reactjsday-2026': { name: 'reactjsday', date: '19 Nov 2026', on: '2026-11-19' },
+  'reactjsday-2026': { name: 'reactjsday', date: '19 Nov 2026', on: '2026-11-19',
+    qr: { src: 'assets/venues/reactjsday-qr.png', caption: 'Ask questions & leave feedback · grusp.org/agenda' } },
   'react-day-berlin-2026': { name: 'React Day Berlin', date: 'Dec 2026', on: '2026-12-04' },
 };
 // Today's local date as YYYY-MM-DD, so the event day itself still counts as upcoming.
@@ -32,10 +34,13 @@ function venueLabel(id) {
   const v = VENUES[id];
   return v ? `${v.name} · ${v.date}` : '';
 }
-function useVenueLabel() {
+function useVenueId() {
   const [id, setId] = React.useState(venueStore.id);
   React.useEffect(() => { venueStore.subs.add(setId); return () => venueStore.subs.delete(setId); }, []);
-  return venueLabel(id);
+  return id;
+}
+function useVenueLabel() {
+  return venueLabel(useVenueId());
 }
 function VenueBrand({ prefix = '' }) {
   const label = useVenueLabel();
@@ -5248,7 +5253,7 @@ function S34_AmazonFeature() {
   );
 }
 Object.assign(window, {
-  VENUES, nextVenueId, todayISO, venueStore, VenueBrand,
+  VENUES, nextVenueId, todayISO, venueStore, VenueBrand, useVenueId,
   Footer, ChapterDivider, Chapter01_Zattoo, Chapter02_Challenge, Chapter03_Failed, Chapter04_Catalyst, Chapter05_Starting, Chapter06_GreenLight, Chapter07_Migration, Chapter08_Learned, Chapter09_WhereNow, S19b_VegaFirstBoot, S22b_TestSuite,
   S03_Everywhere, S04_Moments, S05_Niche, S06_Matrix, S08_Quote, S09_Duplication, S10_PWA, S11_Candidates,
   S13_NDA, S14_WhyMatters, S15_SWOT, S16_StrategicImportance, S23c_OneCodebase, S17_PoC, S17b_PoCScreens, S18_Signal, S18b_RIF,

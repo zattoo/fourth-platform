@@ -320,11 +320,130 @@ function SummitClosing() {
   );
 }
 
+// Last slide — "Questions?" + event QR when the venue has one (reactjsday,
+// Verona); otherwise "Thank you." Contact block (from Whoami) in both.
+// QR comes from VENUES[id].qr via the same venue store as the footer, so
+// switching the event in the toolbar updates it live.
+const CONTACT = {
+  name: 'Bo',
+  title: 'Principal Engineer at Zattoo',
+  photo: 'assets/me/profile.jpg',
+  handles: [], // e.g. ['github.com/…', '@…'] — none on the Whoami slide yet
+};
+function SummitQuestions() {
+  const id = useVenueId();
+  const qr = (VENUES[id] && VENUES[id].qr) || null;
+  return (
+    <div className={qr ? 'slide q-slide has-qr' : 'slide q-slide'} data-screen-label={qr ? 'Questions' : 'Thank you'}>
+      <style>{`
+        .q-slide { position: relative; overflow: hidden; }
+        .q-slide .q-pad {
+          height: 100%; box-sizing: border-box;
+          padding: 0 80px 70px;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          align-items: center;
+          column-gap: 64px;
+        }
+        .q-slide.has-qr .q-pad { grid-template-columns: minmax(0, 1fr) auto; }
+        .q-slide .q-eyebrow {
+          font: 800 14px/1 Compasse, sans-serif;
+          letter-spacing: 0.28em; text-transform: uppercase;
+          color: var(--z-text-secondary);
+          margin-bottom: 20px;
+        }
+        .q-slide .q-rule { height: 3px; width: 96px; background: var(--z-accent-primary); margin-bottom: 32px; }
+        .q-slide .q-title {
+          font: 700 132px/0.95 Compasse, sans-serif;
+          letter-spacing: -0.035em;
+          color: var(--z-text-primary);
+          margin: 0;
+        }
+        .q-slide.has-qr .q-title { font-size: 112px; }
+        .q-slide .q-contact {
+          margin-top: 48px;
+          display: flex; align-items: center; gap: 20px;
+        }
+        .q-slide .q-photo {
+          width: 72px; height: 72px; border-radius: 50%;
+          object-fit: cover; flex-shrink: 0;
+        }
+        .q-slide .q-name {
+          font: 800 26px/1.1 Compasse, sans-serif;
+          color: var(--z-text-primary);
+        }
+        .q-slide .q-role {
+          font: 400 18px/1.35 Compasse, sans-serif;
+          color: var(--z-text-secondary);
+          margin-top: 4px;
+        }
+        .q-slide .q-handles {
+          display: flex; flex-wrap: wrap; gap: 6px 20px;
+          margin-top: 8px;
+          font: 500 15px/1.3 'JetBrains Mono', monospace;
+          color: var(--z-text-secondary);
+        }
+        .q-slide .q-qr { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+        /* QR in deck colours: tile = slide background, modules = primary text.
+           The PNG is an alpha mask (modules opaque), so colours stay in CSS.
+           Dark theme renders an inverted code (light on dark). */
+        .q-slide .q-qr-tile {
+          --qr-paper: var(--z-surface-base);
+          --qr-ink: var(--z-text-primary);
+          background: var(--qr-paper);
+          padding: 26px;
+          border-radius: 6px;
+          line-height: 0;
+        }
+        .q-slide .q-qr-code {
+          width: 300px; height: 300px;
+          background: var(--qr-ink);
+          -webkit-mask: var(--qr-src) center / contain no-repeat;
+                  mask: var(--qr-src) center / contain no-repeat;
+        }
+        .q-slide .q-qr-caption {
+          max-width: 344px;
+          text-align: center;
+          font: 600 15px/1.35 Compasse, sans-serif;
+          color: var(--z-text-secondary);
+          text-wrap: balance;
+        }
+      `}</style>
+      <div className="q-pad">
+        <div>
+          {qr && <div className="q-eyebrow">Thank you</div>}
+          <div className="q-rule"></div>
+          {qr
+            ? <h1 className="q-title">Questions<span style={{color: 'var(--z-accent-primary)'}}>?</span></h1>
+            : <h1 className="q-title">Thank you<span style={{color: 'var(--z-accent-primary)'}}>.</span></h1>}
+          <div className="q-contact">
+            <img className="q-photo" src={CONTACT.photo} alt="" />
+            <div>
+              <div className="q-name">{CONTACT.name}</div>
+              <div className="q-role">{CONTACT.title}</div>
+              {CONTACT.handles.length > 0 && (
+                <div className="q-handles">{CONTACT.handles.map(h => <span key={h}>{h}</span>)}</div>
+              )}
+            </div>
+          </div>
+        </div>
+        {qr && (
+          <div className="q-qr">
+            <div className="q-qr-tile"><div className="q-qr-code" role="img" aria-label="QR code" style={{'--qr-src': `url("${qr.src}")`}}></div></div>
+            <div className="q-qr-caption">{qr.caption}</div>
+          </div>
+        )}
+      </div>
+      <SummitFooter beat={qr ? 'Questions' : 'Thank you'} />
+    </div>
+  );
+}
+
 // Helper: wrap any imported content slide to suppress its footer pager
 // (We can't easily override the imported slide's hardcoded Footer n value,
 // so we use CSS to hide pager + reset brand for the summit variant.)
 
 Object.assign(window, {
   SUMMIT_TOTAL,
-  SummitFooter, SummitCover, SummitHook, SummitMe, SummitClosing,
+  SummitFooter, SummitCover, SummitHook, SummitMe, SummitClosing, SummitQuestions,
 });

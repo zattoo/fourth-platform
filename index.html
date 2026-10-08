@@ -103,6 +103,7 @@ function Deck() {
     S33_Roadmap,         // 51 · Where we are now
     S34_AmazonFeature,   // 52 · Featured on Amazon Vega Developer Portal
     SummitClosing,       // 53 · Surprisingly close
+    SummitQuestions,     // 54 · Questions? (+ event QR when set)
   ];
   return (
     <deck-stage width="1280" height="720" data-variant="summit">
@@ -406,6 +407,21 @@ setTimeout(() => {
 
   // Event selector config — declared before initBadge() runs.
   var VENUE_KEY = 'fourth-platform:venue';
+  // ?event=<id> picks and persists the event (as if chosen in the toolbar);
+  // ?event=none stores "No event". Unknown ids are ignored. The parameter is
+  // then stripped from the address bar so reloads and shared links don't carry it.
+  (function readEventParam() {
+    try {
+      const url = new URL(location.href);
+      if (!url.searchParams.has('event')) return;
+      const id = url.searchParams.get('event');
+      const venues = window.VENUES || {};
+      if (id === 'none') localStorage.setItem(VENUE_KEY, '');
+      else if (Object.prototype.hasOwnProperty.call(venues, id)) localStorage.setItem(VENUE_KEY, id);
+      url.searchParams.delete('event');
+      history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+    } catch (e) {}
+  })();
   applyVenue(getVenue());
 
   const initBadge = () => {

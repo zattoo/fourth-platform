@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/) loosely â
 - `sw.js` service worker: the published deck works offline after one online visit (deck files, React/Babel from unpkg and Google Fonts precached). Registered from `fourth-platform.html` on `github.io` and `localhost` only.
 - Event breadcrumb in every slide footer, picked from an "Event" select in the deck toolbar (after the 20m/35m toggle). Defaults to the next upcoming event: each venue in `VENUES` now carries an ISO talk day (`on`), and `nextVenueId()` picks the earliest one today or later. A stored pick is kept until its day passes; "No event" is always respected.
 - "Offline ready" indicator in the deck toolbar, shown once the service worker is active.
+- Closing slide after "Surprisingly close" with the speaker contact block: "Questions?" plus a scannable QR when the active event has one (only reactjsday, Verona), otherwise "Thank you." The QR is 300px on a white tile. Venues gain an optional `qr: { src, caption }`; set on reactjsday (`assets/venues/reactjsday-qr.png`). Updates live when the event is switched in the toolbar.
+- `?event=<id>` URL parameter picks and persists the event (same as choosing it in the toolbar); `?event=none` stores "No event". Unknown ids are ignored. The parameter is removed from the address bar after load, so reloads and shared links don't carry it.
 - Favicon and Apple touch icon (`assets/favicon.png`).
 
 ### Changed
