@@ -804,6 +804,71 @@ function S05_Niche() {
       <rect x={w / 2 - 14} y={h - 6} width="28" height="1.8" rx="0.9" fill="currentColor" opacity="0.55"/>
     </svg>
   );
+  // Pixel — rounded slab with a centred punch-hole camera
+  const Pixel = ({ w = 52, h = 100 }) => (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+      <rect x="2" y="2" width={w - 4} height={h - 4} rx="9" fill="none" stroke="currentColor" strokeWidth="1.6"/>
+      <rect x="5" y="8" width={w - 10} height={h - 16} rx="3" fill="currentColor" opacity="0.08"/>
+      <circle cx={w / 2} cy="11" r="1.8" fill="currentColor"/>
+      <rect x={w / 2 - 7} y={h - 6} width="14" height="1.6" rx="0.8" fill="currentColor" opacity="0.45"/>
+    </svg>
+  );
+  // Galaxy Z Fold — open: wide near-square screen with a centre crease
+  const ZFold = ({ w = 84, h = 96 }) => (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+      <rect x="2" y="2" width={w - 4} height={h - 4} rx="5" fill="none" stroke="currentColor" strokeWidth="1.6"/>
+      <rect x="5" y="6" width={w - 10} height={h - 12} rx="2" fill="currentColor" opacity="0.08"/>
+      <line x1={w / 2} y1="4" x2={w / 2} y2={h - 4} stroke="currentColor" strokeWidth="0.9" opacity="0.45" strokeDasharray="3 2"/>
+      <circle cx={w * 0.75} cy="11" r="1.6" fill="currentColor"/>
+    </svg>
+  );
+  // Galaxy Z Flip — folded clamshell with the cover-screen cameras
+  const ZFlip = ({ w = 50, h = 52 }) => (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+      <rect x="2" y="2" width={w - 4} height={h - 4} rx="8" fill="none" stroke="currentColor" strokeWidth="1.6"/>
+      <rect x="6" y="6" width={w - 12} height={h * 0.55} rx="4" fill="currentColor" opacity="0.10"/>
+      <circle cx="13" cy="14" r="3.2" fill="none" stroke="currentColor" strokeWidth="1.1"/>
+      <circle cx="23" cy="14" r="3.2" fill="none" stroke="currentColor" strokeWidth="1.1"/>
+      <line x1="4" y1={h - 9} x2={w - 4} y2={h - 9} stroke="currentColor" strokeWidth="0.9" opacity="0.45"/>
+    </svg>
+  );
+  // Surface Duo — two separate screens joined by a hinge
+  const SurfaceDuo = ({ w = 80, h = 96 }) => {
+    const pw = (w - 8) / 2;
+    return (
+      <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+        <rect x="2" y="2" width={pw} height={h - 4} rx="5" fill="none" stroke="currentColor" strokeWidth="1.6"/>
+        <rect x={w - 2 - pw} y="2" width={pw} height={h - 4} rx="5" fill="none" stroke="currentColor" strokeWidth="1.6"/>
+        <rect x="5" y="9" width={pw - 6} height={h - 18} rx="2" fill="currentColor" opacity="0.08"/>
+        <rect x={w + 1 - pw} y="9" width={pw - 6} height={h - 18} rx="2" fill="currentColor" opacity="0.08"/>
+        <line x1={w / 2} y1="10" x2={w / 2} y2={h - 10} stroke="currentColor" strokeWidth="1.4" opacity="0.55"/>
+      </svg>
+    );
+  };
+  // Mobile web — phone with an address bar
+  const MobileBrowser = ({ w = 52, h = 98 }) => (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+      <rect x="2" y="2" width={w - 4} height={h - 4} rx="9" fill="none" stroke="currentColor" strokeWidth="1.6"/>
+      <rect x="7" y="10" width={w - 14} height="8" rx="4" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.7"/>
+      <circle cx="11.5" cy="14" r="1.3" fill="currentColor" opacity="0.7"/>
+      <rect x="7" y="24" width={w - 14} height="22" rx="2" fill="currentColor" opacity="0.10"/>
+      <rect x="7" y="51" width={w - 20} height="2.4" rx="1.2" fill="currentColor" opacity="0.35"/>
+      <rect x="7" y="57" width={w - 14} height="2.4" rx="1.2" fill="currentColor" opacity="0.25"/>
+      <rect x="7" y="63" width={w - 24} height="2.4" rx="1.2" fill="currentColor" opacity="0.25"/>
+      <rect x={w / 2 - 7} y={h - 6} width="14" height="1.6" rx="0.8" fill="currentColor" opacity="0.45"/>
+    </svg>
+  );
+  // PWA / TWA — installed web app: no address bar, app header + tile grid
+  const PWA = ({ w = 52, h = 98 }) => (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+      <rect x="2" y="2" width={w - 4} height={h - 4} rx="9" fill="none" stroke="currentColor" strokeWidth="1.6"/>
+      <rect x="5" y="8" width={w - 10} height="10" rx="2" fill="currentColor" opacity="0.22"/>
+      {[0, 1].map(c => [0, 1, 2].map(r => (
+        <rect key={`${c}${r}`} x={7 + c * ((w - 14) / 2 + 1)} y={23 + r * 20} width={(w - 16) / 2} height="16" rx="2" fill="currentColor" opacity="0.10"/>
+      )))}
+      <rect x={w / 2 - 7} y={h - 6} width="14" height="1.6" rx="0.8" fill="currentColor" opacity="0.45"/>
+    </svg>
+  );
   const GalaxyTab = ({ w = 96, h = 126 }) => (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
       <rect x="2" y="2" width={w - 4} height={h - 4} rx="4" fill="none" stroke="currentColor" strokeWidth="1.6"/>
@@ -897,11 +962,12 @@ function S05_Niche() {
       <circle cx={w - 11} cy={h / 2} r="1.4" fill="currentColor"/>
     </svg>
   );
-  const Stick = ({ w = 124, h = 30 }) => (
+  // Fire TV Stick — short, chunky body (~3.4:1) with a stubby HDMI plug
+  const Stick = ({ w = 84, h = 30 }) => (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
-      <rect x="2" y={h / 2 - 6} width={w - 28} height="12" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-      <rect x={w - 26} y={h / 2 - 4} width="12" height="8" fill="currentColor" opacity="0.5"/>
-      <circle cx="12" cy={h / 2} r="1.3" fill="currentColor"/>
+      <rect x="2" y={h / 2 - 9} width={w - 16} height="18" rx="4" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+      <rect x={w - 14} y={h / 2 - 4.5} width="10" height="9" rx="1" fill="currentColor" opacity="0.5"/>
+      <circle cx="11" cy={h / 2} r="1.3" fill="currentColor"/>
     </svg>
   );
   const Dongle = ({ w = 112, h = 24 }) => (
@@ -941,51 +1007,72 @@ function S05_Niche() {
       <rect x={w - 20} y="79" width="12" height="3" rx="0.5" fill="currentColor" opacity="0.30"/>
     </svg>
   );
-  const PlayStation = ({ w = 60, h = 92 }) => (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
-      <rect x="2" y="2" width={w - 4} height={h - 4} rx="6" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-      <line x1="14" y1="10" x2="14" y2={h - 10} stroke="currentColor" strokeWidth="1.2" opacity="0.45"/>
-      <line x1={w - 14} y1="10" x2={w - 14} y2={h - 10} stroke="currentColor" strokeWidth="1.2" opacity="0.45"/>
-      <rect x={w / 2 - 2} y={h / 2 - 8} width="4" height="16" rx="1" fill="currentColor" opacity="0.55"/>
-      <circle cx="11" cy={h - 12} r="1.1" fill="currentColor" opacity="0.55"/>
-    </svg>
-  );
+  const PlayStation = ({ w = 60, h = 92 }) => {
+    // PS5 (vertical): narrow dark core flanked by curved white side panels
+    // that flare wider at top and bottom, pinching in at the waist.
+    const cx = w / 2, core = 7;
+    const panel = (s) => {
+      const inner = cx + s * core, outer = cx + s * (w / 2 - 2), waist = cx + s * (w / 2 - 9);
+      return `M ${inner} 4 C ${outer} 2, ${outer} 6, ${outer} 14 C ${waist} 32, ${waist} 60, ${outer} ${h - 10} C ${outer} ${h - 3}, ${outer} ${h - 2}, ${inner} ${h - 4} Z`;
+    };
+    return (
+      <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+        <path d={panel(-1)} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d={panel(1)} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+        <rect x={cx - core} y="6" width={core * 2} height={h - 12} rx="2" fill="currentColor" opacity="0.18" stroke="currentColor" strokeWidth="1"/>
+        <rect x={cx - 3} y="22" width="6" height="1.6" rx="0.8" fill="currentColor" opacity="0.6"/>
+        <circle cx={cx} cy="30" r="1.1" fill="currentColor" opacity="0.6"/>
+        <line x1={cx - core + 2} y1={h - 18} x2={cx + core - 2} y2={h - 18} stroke="currentColor" strokeWidth="0.8" opacity="0.4"/>
+      </svg>
+    );
+  };
 
   // ─── Curated absolute positions (no overlap) ───────────────────
   // Left zone area ~290×360. Right zone area ~820×400.
   const left = [
-    { name: 'iPhone',         x:  10, y:  20, r: -4, z: 1, el: <IPhone w={62} h={120} /> },
-    { name: 'Samsung',        x:  88, y:  14, r:  5, z: 1, el: <SamsungPhone w={60} h={122} /> },
-    { name: 'iPad',           x:  10, y: 215, r: -3, z: 1, el: <IPad w={92} h={122} /> },
-    { name: 'Galaxy\u00a0Tab',     x: 124, y: 222, r:  4, z: 1, el: <GalaxyTab w={96} h={124} /> },
+    // Row 1 — classic slabs
+    { name: 'iPhone',         x:   0, y:   6, r: -4, z: 1, el: <IPhone w={50} h={98} /> },
+    { name: 'Samsung',        x:  70, y:   0, r:  4, z: 1, el: <SamsungPhone w={48} h={98} /> },
+    { name: 'Pixel',          x: 140, y:   8, r: -2, z: 1, el: <Pixel w={48} h={94} /> },
+    // Row 2 — foldables & dual-screen
+    { name: 'Z\u00a0Fold',          x:   0, y: 134, r:  3, z: 1, el: <ZFold w={72} h={80} /> },
+    { name: 'Surface\u00a0Duo',     x:  86, y: 132, r: -3, z: 1, el: <SurfaceDuo w={70} h={82} /> },
+    { name: 'Z\u00a0Flip',          x: 164, y: 158, r:  5, z: 1, el: <ZFlip w={44} h={46} /> },
+    // Row 3 — tablets
+    { name: 'iPad',           x:   6, y: 252, r: -3, z: 1, el: <IPad w={78} h={100} /> },
+    { name: 'Galaxy\u00a0Tab',     x: 108, y: 256, r:  4, z: 1, el: <GalaxyTab w={80} h={102} /> },
   ];
   const right = [
     // Back row — five TVs with vendor-specific stands
-    { name: 'Samsung\u00a0\u00b7\u00a0Tizen',   x:   8, y:   4, r: -1, z: 1, el: <TV w={184} h={130} stand="pedestal" /> },
-    { name: 'LG\u00a0\u00b7\u00a0webOS',        x: 216, y:  22, r:  2, z: 1, el: <TV w={148} h={108} stand="legs" /> },
-    { name: 'Vidaa\u00a0\u00b7\u00a0Hisense',   x: 388, y:  10, r: -2, z: 1, el: <TV w={130} h={94}  stand="feet" /> },
-    { name: 'Panasonic',                x: 542, y:  22, r:  3, z: 1, el: <TV w={112} h={84}  stand="centerStem" /> },
+    { name: 'Samsung\u00a0\u00b7\u00a0Tizen',   x:   8, y:   4, r: -1, z: 1, el: <TV w={160} h={114} stand="pedestal" /> },
+    { name: 'LG\u00a0\u00b7\u00a0webOS',        x: 186, y:  18, r:  2, z: 1, el: <TV w={132} h={96}  stand="legs" /> },
+    { name: 'Vidaa\u00a0\u00b7\u00a0Hisense',   x: 336, y:  10, r: -2, z: 1, el: <TV w={116} h={86}  stand="feet" /> },
+    { name: 'Panasonic',                x: 470, y:  20, r:  3, z: 1, el: <TV w={102} h={78}  stand="centerStem" /> },
     // Wall-mounted (no stand)
-    { name: 'Android\u00a0TV',          x: 680, y:  16, r: -2, z: 1, el: <TV w={120} h={68}  stand="none" /> },
-    // Mid row — web + three STB variants
-    { name: 'Web\u00a0\u00b7\u00a0Browser',     x:   8, y: 170, r:  2, z: 2, el: <Browser w={144} h={98} /> },
-    { name: 'Operator\u00a0STB',        x: 172, y: 208, r: -3, z: 2, el: <OperatorSTB w={134} h={48} /> },
-    { name: 'Cable\u00a0STB',           x: 322, y: 214, r:  2, z: 2, el: <CableSTB w={124} h={48} /> },
-    { name: 'IPTV\u00a0Box',            x: 462, y: 218, r: -2, z: 2, el: <IPTVBox w={108} h={42} /> },
-    // Right column — consoles stacked below Android TV
-    { name: 'Xbox',                 x: 678, y: 124, r: -3, z: 2, el: <Xbox w={58} h={88} /> },
-    { name: 'PlayStation',          x: 748, y: 120, r:  4, z: 2, el: <PlayStation w={58} h={92} /> },
+    { name: 'Android\u00a0TV',          x: 590, y:  16, r: -2, z: 1, el: <TV w={108} h={62}  stand="none" /> },
+    // Mid row — three STB variants + consoles
+    { name: 'Operator\u00a0STB',        x:   8, y: 196, r: -3, z: 2, el: <OperatorSTB w={134} h={48} /> },
+    { name: 'Cable\u00a0STB',           x: 160, y: 202, r:  2, z: 2, el: <CableSTB w={124} h={48} /> },
+    { name: 'IPTV\u00a0Box',            x: 302, y: 206, r: -2, z: 2, el: <IPTVBox w={108} h={42} /> },
+    { name: 'Xbox',                 x: 450, y: 160, r: -3, z: 2, el: <Xbox w={58} h={88} /> },
+    { name: 'PlayStation',          x: 530, y: 156, r:  4, z: 2, el: <PlayStation w={58} h={92} /> },
     // Front row — small streaming devices
     { name: 'Apple\u00a0TV',            x:  40, y: 320, r: -4, z: 3, el: <Puck w={98} h={36} /> },
-    { name: 'Fire\u00a0TV',             x: 196, y: 326, r: -3, z: 3, el: <Stick w={124} h={30} /> },
+    { name: 'Fire\u00a0TV',             x: 210, y: 326, r: -3, z: 3, spot: true, el: <Stick w={84} h={30} /> },
     { name: 'Chromecast',           x: 372, y: 332, r:  3, z: 3, el: <Dongle w={112} h={24} /> },
+  ];
+  // Web — its own experience, neither mobile nor bigscreen
+  const web = [
+    { name: 'Web\u00a0\u00b7\u00a0Browser',     x:   4, y:  20, r:  2, z: 1, el: <Browser w={144} h={98} /> },
+    { name: 'Mobile\u00a0web',      x:   8, y: 170, r: -3, z: 1, el: <MobileBrowser w={50} h={96} /> },
+    { name: 'PWA\u00a0\u00b7\u00a0TWA',       x:  84, y: 176, r:  3, z: 1, el: <PWA w={50} h={96} /> },
   ];
 
   const Pile = ({ items }) => (
     <div className="niche-pile">
       {items.map((d, i) => (
         <div
-          className="niche-item"
+          className={d.spot ? 'niche-item is-spot' : 'niche-item'}
           key={i}
           style={{
             left: d.x, top: d.y,
@@ -1001,7 +1088,7 @@ function S05_Niche() {
   );
 
   return (
-    <div className="slide niche-slide" data-screen-label="02. Niche expertise">
+    <div className="slide niche-slide" data-screen-label="02. Niche expertise" data-build-max="2">
       <style>{`
         .niche-slide .niche-pad {
           padding: 48px 60px 90px;
@@ -1024,8 +1111,8 @@ function S05_Niche() {
           margin-top: 24px;
           flex: 1;
           display: grid;
-          grid-template-columns: minmax(0, 1fr) auto minmax(0, 2.85fr);
-          gap: 28px;
+          grid-template-columns: minmax(0, 1fr) auto minmax(0, 3.3fr) auto minmax(0, 0.75fr);
+          gap: 22px;
           align-items: stretch;
           min-height: 0;
         }
@@ -1034,12 +1121,46 @@ function S05_Niche() {
           min-width: 0; min-height: 0;
         }
         .niche-slide .niche-zone-label {
-          font: 800 10.5px/1 Compasse, sans-serif;
-          letter-spacing: 0.22em; text-transform: uppercase;
+          font: 800 20px/1 Compasse, sans-serif;
+          letter-spacing: 0.16em; text-transform: uppercase;
           color: var(--z-text-secondary);
-          margin-bottom: 8px;
+          margin-bottom: 14px;
         }
         .niche-slide .niche-zone.is-ours .niche-zone-label {
+          color: var(--z-text-secondary);
+        }
+        /* Build step 1 — spotlight Bigscreen: dim the other zones */
+        .niche-slide .niche-zone,
+        .niche-slide .niche-divider {
+          transition: opacity 500ms ease, filter 500ms ease;
+        }
+        .niche-slide .niche-zone.is-ours .niche-zone-label,
+        .niche-slide .niche-zone.is-ours .niche-pile {
+          transition: color 500ms ease;
+        }
+        .niche-slide[data-step="1"] .niche-zone:not(.is-ours),
+        .niche-slide[data-step="2"] .niche-zone:not(.is-ours) {
+          opacity: 0.22;
+          filter: saturate(0);
+        }
+        .niche-slide[data-step="1"] .niche-divider,
+        .niche-slide[data-step="2"] .niche-divider { opacity: 0.3; }
+        .niche-slide[data-step="1"] .niche-zone.is-ours .niche-zone-label,
+        .niche-slide[data-step="2"] .niche-zone.is-ours .niche-zone-label {
+          color: var(--z-accent-primary);
+        }
+        .niche-slide[data-step="1"] .niche-zone.is-ours .niche-pile {
+          color: var(--z-text-primary);
+        }
+        /* Build step 2 — spotlight Fire TV within Bigscreen */
+        .niche-slide .niche-item { transition: opacity 500ms ease, color 500ms ease; }
+        .niche-slide[data-step="2"] .niche-zone.is-ours .niche-item:not(.is-spot) {
+          opacity: 0.22;
+        }
+        .niche-slide[data-step="2"] .niche-item.is-spot {
+          color: var(--z-accent-primary);
+        }
+        .niche-slide[data-step="2"] .niche-item.is-spot .niche-item-name {
           color: var(--z-accent-primary);
         }
         .niche-slide .niche-divider {
@@ -1090,6 +1211,11 @@ function S05_Niche() {
           <div className="niche-zone is-ours">
             <div className="niche-zone-label">Bigscreen</div>
             <Pile items={right} />
+          </div>
+          <div className="niche-divider" aria-hidden="true" />
+          <div className="niche-zone">
+            <div className="niche-zone-label">Web</div>
+            <Pile items={web} />
           </div>
         </div>
       </div>
