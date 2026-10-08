@@ -2,7 +2,7 @@
 // Open the deck once online; after that it loads from Cache Storage with no network.
 // /deck publish bumps VERSION and regenerates PRECACHE on every sync.
 
-const VERSION = '2026-10-08T1210Z';
+const VERSION = '2026-10-08T1242Z';
 const CACHE = `fourth-platform-${VERSION}`;
 
 // Deck files, relative to this worker. The entry is index.html in the repo

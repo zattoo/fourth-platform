@@ -71,7 +71,7 @@ deck-stage section {
 }
 
 .deck-footer .pageno { white-space: nowrap; font-variant-numeric: tabular-nums; }
-.deck-footer .crumb { color: var(--z-text-secondary); }
+.deck-footer .crumb { color: var(--z-text-secondary); white-space: nowrap; }
 .deck-footer .crumb .num { color: var(--z-accent-primary); margin-right: 8px; }
 .deck-footer .pager { color: var(--z-text-secondary); }
 .deck-footer .pager .now { color: var(--z-text-primary); font-weight: 800; }

@@ -272,276 +272,189 @@ function S19b_VegaFirstBoot() {
 
 // ─── S22b · Universal test framework ───────────────────────────────
 function S22b_TestSuite() {
-  const Triangle = () => (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14a2 2 0 0 0 1.7 3h16a2 2 0 0 0 1.7-3z"/>
-      <path d="M12 9v4"/><path d="M12 17h.01"/>
-    </svg>
-  );
-  const Box = () => (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-      <path d="m3.3 7 8.7 5 8.7-5"/>
-      <path d="M12 22V12"/>
-    </svg>
-  );
-  const Check = () => (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-      <path d="m9 11 3 3L22 4"/>
-    </svg>
-  );
-  const Target = () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
-      <path d="M12 2v6M22 12h-6"/>
-    </svg>
-  );
-
-  const Globe = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
-    </svg>
-  );
-  const Code = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>
-    </svg>
-  );
-  const People = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.2"/>
-      <path d="M3 19c.6-3.4 3-5 6-5s5.4 1.6 6 5"/>
-      <path d="M14 17c.5-1.8 2-3 4-3 1.6 0 3 .9 3.5 3"/>
-    </svg>
-  );
-  const Gear = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="3"/>
-      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.36.86 1.18 1.4 2 1.4H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-    </svg>
-  );
-  const Puzzle = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M19.4 13a2 2 0 0 1 0 4 2 2 0 0 1-1.4-.6c-.4-.4-1-.4-1.4 0V19a2 2 0 0 1-2 2h-2v-2c0-.6-.4-1-1-1s-1 .4-1 1v2H8a2 2 0 0 1-2-2v-2c0-.6-.4-1-1-1H3a2 2 0 0 1 0-4h2c.6 0 1-.4 1-1V8a2 2 0 0 1 2-2h2.6c.4 0 .6-.4.6-.8a2 2 0 0 1 4 0c0 .4.2.8.6.8H19a2 2 0 0 1 2 2v2.6c0 .4-.4.6-.8.6"/>
-    </svg>
-  );
-
-  const Bracket = ({ idx, color, icon, title, items }) => (
-    <div className="tests-col">
-      <div className="tests-col-head" style={{color}}>
-        <span className="tests-col-icon" style={{color}}>{icon}</span>
-        <span>{title}</span>
-      </div>
-      <div className="tests-col-items">
-        {items.map((it, i) => (
-          <div key={i} className="tests-item" style={{borderColor: color + '4D'}}>
-            <span className="tests-item-icon" style={{color, borderColor: color + '4D'}}>{it.icon}</span>
-            <span className="tests-item-text">{it.text}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  // Diagram-led: one test → framework → four platforms. Builds in 4 clicks.
+  const plats = [
+    { name: 'Web', runtime: 'WebDriver' },
+    { name: 'Android TV', runtime: 'Appium' },
+    { name: 'Apple TV', runtime: 'Appium' },
+    { name: 'Vega', runtime: 'Appium', magic: true },
+  ];
+  const ROW = 62, H = ROW * plats.length; // flow height
+  const takeaways = [
+    { lead: 'Tests stay shared', rest: 'across every platform.' },
+    { lead: 'Platform specifics', rest: 'live in helpers, not in tests.' },
+    { lead: 'New platforms', rest: 'extend helpers. Tests don\u2019t fork.' },
+  ];
 
   return (
-    <div className="slide tests-slide" data-screen-label="07. One test suite">
+    <div className="slide tests-slide" data-screen-label="07. One test suite" data-build-max="4">
       <style>{`
         .tests-slide .tests-title {
           font: 700 36px/1.05 Compasse, sans-serif;
           color: var(--z-text-primary);
           letter-spacing: -0.015em;
-          margin: 0;
+          margin: 8px 0 0;
         }
-        .tests-slide .tests-grid {
-          margin-top: 36px;
-          display: grid;
-          grid-template-columns: 1fr 1.18fr 1fr;
-          gap: 18px;
-        }
-        .tests-slide .tests-col {
-          display: flex; flex-direction: column;
-          gap: 12px;
-        }
-        .tests-slide .tests-col-head {
-          display: flex; align-items: center;
-          gap: 10px;
-          font: 800 17px/1 Compasse, sans-serif;
-          letter-spacing: -0.005em;
-          padding-bottom: 8px;
-        }
-        .tests-slide .tests-col-icon {
-          display: inline-flex; align-items: center; justify-content: center;
-          width: 28px; height: 28px;
-        }
-        .tests-slide .tests-col-items {
-          display: flex; flex-direction: column;
-          gap: 10px;
-        }
-        .tests-slide .tests-item {
-          display: grid; grid-template-columns: 36px 1fr;
-          gap: 12px; align-items: center;
-          padding: 12px 14px;
-          border-radius: 6px;
-          border: 1px solid;
-          background: transparent;
-        }
-        .tests-slide .tests-item-icon {
-          width: 36px; height: 36px;
-          border-radius: 50%;
-          border: 1px solid;
-          display: inline-flex; align-items: center; justify-content: center;
-        }
-        .tests-slide .tests-item-text {
-          font: 600 14px/1.3 Compasse, sans-serif;
-          color: var(--z-text-primary);
+        .tests-slide .tests-sub {
+          font: 400 18px/1.4 Compasse, sans-serif;
+          color: var(--z-text-secondary);
+          margin: 10px 0 0;
+          max-width: 1000px;
           text-wrap: pretty;
         }
-
-        /* Middle column — diagram */
-        .tests-slide .tests-diagram {
-          display: flex; flex-direction: column;
-          align-items: stretch;
-          gap: 8px;
-        }
-        .tests-slide .diag-pill {
-          background: var(--z-surface-card);
-          border: 1px solid rgba(0,184,212,0.30);
-          border-radius: 999px;
-          padding: 10px 18px;
-          align-self: center;
-          font: 600 13px/1 Compasse, sans-serif;
-          color: var(--z-text-primary);
-          display: inline-flex; align-items: center; gap: 8px;
-        }
-        .tests-slide .diag-pill code {
-          font: 700 12px/1 'JetBrains Mono', monospace;
-          color: var(--z-accent-teal);
-        }
-        .tests-slide .diag-arrow {
-          align-self: center;
-          color: var(--z-accent-teal);
-          opacity: 0.6;
-          font-size: 14px;
-          margin: -2px 0;
-        }
-        .tests-slide .diag-core {
-          background: rgba(0,184,212,0.10);
-          border: 1.5px solid rgba(0,184,212,0.45);
-          border-radius: 8px;
-          padding: 14px 18px;
-          align-self: center;
-          font: 700 16px/1.2 Compasse, sans-serif;
-          color: var(--z-accent-teal);
-          text-align: center;
-        }
-        .tests-slide .diag-plats {
+        .tests-slide .tests-flow {
+          margin-top: 34px;
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 6px;
-          margin-top: 4px;
+          grid-template-columns: 320px 52px 230px 80px minmax(0, 1fr);
+          grid-template-rows: ${H}px auto;
+          align-items: center;
         }
-        .tests-slide .diag-plat {
-          padding: 10px 6px;
-          border: 1px solid rgba(0,184,212,0.30);
-          border-radius: 6px;
-          text-align: center;
+        .tests-slide .tests-flow > svg { display: block; }
+        .tests-slide .flow-test {
+          background: var(--z-surface-card);
+          border-radius: 4px;
+          padding: 16px 18px;
+        }
+        .tests-slide .flow-label {
           font: 700 12px/1.2 Compasse, sans-serif;
+          letter-spacing: 0.16em; text-transform: uppercase;
+          color: var(--z-text-tertiary);
+          margin-bottom: 8px;
+        }
+        .tests-slide .flow-file {
+          display: flex; align-items: center; gap: 8px;
+          font: 500 12px/1 'JetBrains Mono', monospace;
+          color: var(--z-text-tertiary);
+          padding-bottom: 10px; margin-bottom: 10px;
+          border-bottom: 1px solid var(--z-border-default);
+        }
+        .tests-slide .flow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--z-accent-yellow); }
+        .tests-slide .flow-code {
+          margin: 0;
+          font: 500 13.5px/1.55 'JetBrains Mono', monospace;
+          color: var(--z-text-primary);
+          white-space: pre;
+        }
+        .tests-slide .flow-code .k { color: var(--z-accent-primary); }
+        .tests-slide .flow-code .s { color: var(--z-accent-green); }
+        .tests-slide .flow-code .f { color: var(--z-accent-blue); }
+        .tests-slide .flow-fw {
+          border: 1.5px solid var(--z-accent-primary);
+          border-radius: 4px;
+          padding: 18px 20px;
+        }
+        .tests-slide .flow-fw-name {
+          font: 800 21px/1.15 Compasse, sans-serif;
+          color: var(--z-text-primary);
+          letter-spacing: -0.01em;
+        }
+        .tests-slide .flow-plats { display: flex; flex-direction: column; }
+        .tests-slide .flow-plat {
+          height: ${ROW}px;
+          display: flex; align-items: center; justify-content: space-between; gap: 16px;
+          border-top: 1px solid var(--z-border-default);
+          box-sizing: border-box;
+        }
+        .tests-slide .flow-plat-name {
+          font: 800 21px/1 Compasse, sans-serif;
           color: var(--z-text-primary);
         }
-        .tests-slide .diag-plat .runtime {
-          display: block;
-          margin-top: 4px;
-          font: 500 11px/1 'JetBrains Mono', monospace;
-          color: var(--z-accent-teal);
-        }
-        .tests-slide .diag-shared {
-          margin-top: 6px;
-          padding: 10px 14px;
-          border: 1px dashed rgba(0,184,212,0.40);
-          border-radius: 6px;
-          text-align: center;
-          font: 600 12px/1 Compasse, sans-serif;
+        .tests-slide .flow-plat-rt {
+          font: 500 16px/1 'JetBrains Mono', monospace;
           color: var(--z-text-secondary);
         }
-
-        /* Bottom callout */
-        .tests-slide .tests-callout {
-          margin-top: 24px;
-          padding: 14px 18px;
-          background: rgba(68,147,248,0.10);
-          border: 1px solid rgba(68,147,248,0.30);
-          border-radius: 4px;
-          display: flex; align-items: center; gap: 16px;
+        .tests-slide .flow-base {
+          border-top: 1.5px solid var(--z-text-secondary);
+          padding-top: 10px;
+          font: 700 12px/1.2 Compasse, sans-serif;
+          letter-spacing: 0.16em; text-transform: uppercase;
+          color: var(--z-text-tertiary);
         }
-        .tests-slide .tests-callout-icon {
-          width: 36px; height: 36px;
-          border-radius: 50%;
-          border: 2px solid #4493F8;
-          color: #4493F8;
-          display: inline-flex; align-items: center; justify-content: center;
-          flex-shrink: 0;
+        .tests-slide .tests-take {
+          margin-top: 34px;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          column-gap: 40px;
         }
-        .tests-slide .tests-callout-text {
-          font: 700 17px/1.35 Compasse, sans-serif;
-          color: var(--z-text-primary);
+        .tests-slide .take {
+          font: 400 19px/1.4 Compasse, sans-serif;
+          color: var(--z-text-secondary);
+          text-wrap: pretty;
+        }
+        .tests-slide .take strong { color: var(--z-text-primary); font-weight: 700; }
+        .tests-slide .tb1, .tests-slide .tb2, .tests-slide .tb3, .tests-slide .tb4 {
+          transition: opacity 450ms ease, transform 450ms cubic-bezier(.2,.7,.3,1);
+        }
+        .tests-slide:not([data-step]) .tb1,
+        .tests-slide[data-step="0"] .tb1,
+        .tests-slide:not([data-step]) .tb2,
+        .tests-slide[data-step="0"] .tb2,
+        .tests-slide[data-step="1"] .tb2,
+        .tests-slide:not([data-step]) .tb3,
+        .tests-slide[data-step="0"] .tb3,
+        .tests-slide[data-step="1"] .tb3,
+        .tests-slide[data-step="2"] .tb3,
+        .tests-slide:not([data-step]) .tb4,
+        .tests-slide[data-step="0"] .tb4,
+        .tests-slide[data-step="1"] .tb4,
+        .tests-slide[data-step="2"] .tb4,
+        .tests-slide[data-step="3"] .tb4 {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        @media print {
+          .tests-slide .tb1, .tests-slide .tb2, .tests-slide .tb3, .tests-slide .tb4 { opacity: 1 !important; transform: none !important; }
         }
       `}</style>
-      <div className="pad" style={{paddingTop: 56, paddingBottom: 160}}>
-        <h2 className="tests-title">One test suite, <em style={{color: 'var(--z-accent-teal)', fontStyle: 'italic'}}>every platform</em>.</h2>
-
-        <div className="tests-grid">
-          {/* The problem */}
-          <Bracket
-            color="var(--z-accent-red)"
-            icon={<Triangle />}
-            title="The problem"
-            items={[
-              { icon: <Globe />, text: 'No single framework worked across all platforms' },
-              { icon: <Code />, text: 'Existing Playwright tests were already valuable' },
-              { icon: <People />, text: 'We wanted one authoring style, not four separate suites' },
-            ]}
-          />
-
-          {/* Middle diagram */}
-          <div className="tests-col">
-            <div className="tests-col-head" style={{color: 'var(--z-accent-teal)'}}>
-              <span className="tests-col-icon" style={{color: 'var(--z-accent-teal)'}}><Box /></span>
-              <span>Universal System Test Framework</span>
-            </div>
-            <div className="tests-diagram">
-              <div className="diag-pill"><code>{'</>'}</code> Playwright-style tests</div>
-              <div className="diag-arrow">▼</div>
-              <div className="diag-core">Universal System<br/>Test Framework</div>
-              <div className="diag-arrow">▼</div>
-              <div className="diag-plats">
-                <div className="diag-plat">Web<span className="runtime">WebDriver</span></div>
-                <div className="diag-plat">Android TV<span className="runtime">Appium</span></div>
-                <div className="diag-plat">Apple TV<span className="runtime">Appium</span></div>
-                <div className="diag-plat">Vega<span className="runtime">Appium</span></div>
-              </div>
-              <div className="diag-shared">Shared fixtures &amp; helpers</div>
-            </div>
-          </div>
-
-          {/* Why it matters */}
-          <Bracket
-            color="var(--z-accent-green)"
-            icon={<Check />}
-            title="Why it matters"
-            items={[
-              { icon: <People />, text: 'Tests stay shared across platforms' },
-              { icon: <Gear />, text: 'Platform specifics live in helpers' },
-              { icon: <Puzzle />, text: 'New platforms extend helpers, not tests' },
-            ]}
-          />
+      <div className="pad" style={{paddingTop: 32, paddingBottom: 106}}>
+        <div>
+          <div className="eyebrow accent">Testing</div>
+          <h2 className="tests-title">One test suite, <em style={{color: 'var(--z-accent-primary)', fontStyle: 'italic'}}>every platform</em>.</h2>
+          <p className="tests-sub">No framework ran the same test on Web, Android TV, Apple TV and <span className="t-magic" style={{textTransform: 'none'}}>Vega</span>, so we built one that keeps Playwright&rsquo;s shape.</p>
         </div>
 
-        <div className="tests-callout">
-          <span className="tests-callout-icon"><Target /></span>
-          <div className="tests-callout-text">
-            Write the test once. Route execution per platform. Keep differences inside helpers.
+        <div className="tests-flow">
+          <div className="flow-test tb1">
+            <div className="flow-file"><span className="flow-dot"></span>login.test.js</div>
+            <pre className="flow-code">{[
+              <span key="1"><span className="k">test</span>(<span className="s">'login'</span>, <span className="k">async</span> ({'{'} app {'}'}) =&gt; {'{'}</span>,
+              <span key="2">{'  '}<span className="k">await</span> app.<span className="f">open</span>();</span>,
+              <span key="3">{'  '}<span className="k">await</span> <span className="f">expect</span>(…);</span>,
+              <span key="4">{'}'});</span>,
+            ].map((l, i) => <div key={i}>{l}</div>)}</pre>
           </div>
+
+          <svg className="tb2" width="52" height="20" viewBox="0 0 52 20" aria-hidden="true">
+            <path d="M6 10H44M37 4l7 6-7 6" fill="none" stroke="var(--z-accent-primary)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+
+          <div className="flow-fw tb2">
+            <div className="flow-label">Built in-house</div>
+            <div className="flow-fw-name">Universal System Test Framework</div>
+          </div>
+
+          <svg className="tb3" width="80" height={H} viewBox={`0 0 80 ${H}`} aria-hidden="true">
+            {plats.map((p, i) => {
+              const y = i * ROW + ROW / 2;
+              return <path key={i} d={`M0 ${H / 2} C 40 ${H / 2}, 40 ${y}, 72 ${y}`} fill="none" stroke="var(--z-accent-primary)" strokeWidth="1.5" opacity="0.7"/>;
+            })}
+          </svg>
+
+          <div className="flow-plats tb3">
+            {plats.map(p => (
+              <div key={p.name} className="flow-plat">
+                <span className="flow-plat-name">{p.magic ? <span className="t-magic" style={{textTransform: 'none'}}>{p.name}</span> : p.name}</span>
+                <span className="flow-plat-rt">{p.runtime}</span>
+              </div>
+            ))}
+          </div>
+          <div className="flow-base tb3" style={{gridColumn: 5, gridRow: 2}}>Shared fixtures &amp; helpers</div>
+        </div>
+
+        <div className="tests-take tb4">
+          {takeaways.map((t, i) => (
+            <div key={i} className="take"><strong>{t.lead}</strong> {t.rest}</div>
+          ))}
         </div>
       </div>
       <Footer beat="Chapter 07 · Migration in Practice · Tech" beatNum={7} />
@@ -1792,7 +1705,7 @@ function S11_Candidates() {
   ];
 
   return (
-    <div className="slide candidates-slide" data-screen-label="03. Cross-platform candidates">
+    <div className="slide candidates-slide" data-screen-label="03. Cross-platform candidates" data-build-max="3">
       <style>{`
         .candidates-slide .cand-title {
           font: 700 36px/1.05 Compasse, sans-serif;
@@ -1858,6 +1771,19 @@ function S11_Candidates() {
           text-wrap: pretty;
         }
         .candidates-slide .cand-verdict svg { margin-top: 1px; }
+        /* Build: one candidate per click */
+        .candidates-slide .cand-col {
+          transition: opacity 450ms ease, transform 450ms cubic-bezier(.2,.7,.3,1);
+        }
+        .candidates-slide:not([data-step]) .cand-c1, .candidates-slide[data-step="0"] .cand-c1,
+        .candidates-slide:not([data-step]) .cand-c2, .candidates-slide[data-step="0"] .cand-c2, .candidates-slide[data-step="1"] .cand-c2,
+        .candidates-slide:not([data-step]) .cand-c3, .candidates-slide[data-step="0"] .cand-c3, .candidates-slide[data-step="1"] .cand-c3, .candidates-slide[data-step="2"] .cand-c3 {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        @media print {
+          .candidates-slide .cand-col { opacity: 1 !important; transform: none !important; }
+        }
       `}</style>
       <div className="pad" style={{paddingTop: 32, paddingBottom: 90}}>
         <div>
@@ -1868,7 +1794,7 @@ function S11_Candidates() {
 
         <div className="cand-grid">
           {candidates.map((c, i) => (
-            <div key={i} className="cand-col">
+            <div key={i} className={`cand-col cand-c${i + 1}`}>
               <div className="cand-logo">{c.logo}</div>
               <div className="cand-name">{c.name}</div>
               <div className="cand-meta">{c.meta}</div>
@@ -2005,92 +1931,32 @@ function S13_NDA() {
 
 // ─── S15 · React Native SWOT ─────────────────────────────────────────
 function S15_SWOT() {
-  const ShieldIcon = () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      <path d="m9 12 2 2 4-4"/>
-    </svg>
-  );
-  const LinkIcon = () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-    </svg>
-  );
-  const BulbIcon = () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5a6 6 0 0 0-12 0c0 1.3.5 2.5 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
-      <path d="M9 18h6"/>
-      <path d="M10 22h4"/>
-    </svg>
-  );
-  const AlertIcon = () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14a2 2 0 0 0 1.7 3h16a2 2 0 0 0 1.7-3z"/>
-      <path d="M12 9v4"/><path d="M12 17h.01"/>
-    </svg>
-  );
-
+  // Quiet 2×2: Helps / Hurts × Internal / External. One quadrant per click.
   const quadrants = [
-    {
-      title: 'Strengths',
-      color: 'var(--z-accent-green)',
-      tint: 'rgba(63,185,80,0.05)',
-      tintIcon: 'rgba(63,185,80,0.14)',
-      border: 'rgba(63,185,80,0.30)',
-      icon: <ShieldIcon />,
-      items: [
-        'Strong cross-platform web ecosystem',
-        'Senior engineers with strategic mindset',
-        'Deep React expertise transferable to React Native',
-        'Existing scalable web architecture gave us a head start',
-      ],
-    },
-    {
-      title: 'Weaknesses',
-      color: 'var(--z-accent-primary)',
-      tint: 'rgba(217,119,87,0.05)',
-      tintIcon: 'rgba(217,119,87,0.14)',
-      border: 'rgba(217,119,87,0.30)',
-      icon: <LinkIcon />,
-      items: [
-        'React Native was new to the team',
-        'Vega required dedicated budget and squad capacity',
-        'Existing roadmap was already full',
-      ],
-    },
-    {
-      title: 'Opportunities',
-      color: 'var(--z-accent-blue, #4493F8)',
-      tint: 'rgba(68,147,248,0.05)',
-      tintIcon: 'rgba(68,147,248,0.14)',
-      border: 'rgba(68,147,248,0.30)',
-      icon: <BulbIcon />,
-      items: [
-        'True cross-platform unification',
-        'One codebase for Android TV, Apple TV, and beyond',
-        'Lower delivery cost than platform-specific silos',
-        'Clear path toward an end-to-end ownership model',
-      ],
-    },
-    {
-      title: 'Threats',
-      color: 'var(--z-accent-red)',
-      tint: 'rgba(248,81,73,0.05)',
-      tintIcon: 'rgba(248,81,73,0.14)',
-      border: 'rgba(248,81,73,0.30)',
-      icon: <AlertIcon />,
-      items: [
-        'Vega was still immature and timeline was uncertain',
-        'Performance risk could undermine adoption',
-        'Missing Fire TV would threaten the business, especially in Germany',
-        'Users and tenants expected support for Amazon\u2019s ecosystem',
-      ],
-    },
+    { key: 'S', title: 'Strengths', items: [
+      'Deep React expertise, transferable to React Native',
+      'Scalable cross-platform web architecture already in place',
+      'Senior engineers with a strategic mindset',
+    ]},
+    { key: 'W', title: 'Weaknesses', items: [
+      'React Native was new to the team',
+      'Vega needed dedicated budget and squad capacity',
+      'Existing roadmap was already full',
+    ]},
+    { key: 'O', title: 'Opportunities', items: [
+      'One codebase for Android TV, Apple TV and beyond',
+      'Lower delivery cost than platform-specific silos',
+      'A clear path to end-to-end ownership',
+    ]},
+    { key: 'T', title: 'Threats', items: [
+      'Vega was immature and its timeline uncertain',
+      'Performance risk could undermine adoption',
+      'Missing Fire TV would hurt the business, especially in Germany',
+    ]},
   ];
 
   return (
-    <div className="slide swot-slide" data-screen-label="04. React Native SWOT">
+    <div className="slide swot-slide" data-screen-label="04. React Native SWOT" data-build-max="4">
       <style>{`
         .swot-slide .swot-title {
           font: 700 36px/1.05 Compasse, sans-serif;
@@ -2099,100 +1965,108 @@ function S15_SWOT() {
           margin: 8px 0 0;
         }
         .swot-slide .swot-sub {
-          font: 400 17px/1.4 Compasse, sans-serif;
+          font: 400 18px/1.4 Compasse, sans-serif;
           color: var(--z-text-secondary);
-          margin: 8px 0 0;
+          margin: 10px 0 0;
         }
-        .swot-slide .swot-grid {
+        .swot-slide .swot-matrix {
           margin-top: 22px;
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows: 1fr 1fr;
-          gap: 14px;
+          grid-template-columns: 28px minmax(0, 1fr) minmax(0, 1fr);
+          grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr);
+          flex: 1;
+          min-height: 0;
         }
-        .swot-slide .swot-card {
-          border-radius: 0;
-          padding: 0;
-          display: grid;
-          grid-template-columns: 52px 1fr;
-          gap: 16px;
-          align-items: start;
+        .swot-slide .swot-axis {
+          font: 700 12px/1 Compasse, sans-serif;
+          letter-spacing: 0.18em; text-transform: uppercase;
+          color: var(--z-text-tertiary);
+          display: flex; align-items: center; gap: 10px;
         }
-        .swot-slide .swot-icon {
-          width: 52px; height: 52px;
-          border-radius: 50%;
-          display: inline-flex; align-items: center; justify-content: center;
-          flex-shrink: 0;
+        .swot-slide .swot-axis-top { padding: 0 28px 12px; }
+        .swot-slide .swot-axis-side {
+          writing-mode: vertical-rl;
+          transform: rotate(180deg);
+          justify-content: center;
         }
-        .swot-slide .swot-card-head {
-          font: 800 22px/1 Compasse, sans-serif;
-          letter-spacing: -0.005em;
-          padding-bottom: 10px;
-          border-bottom: 1.5px solid currentColor;
+        .swot-slide .swot-tick { width: 18px; height: 3px; border-radius: 2px; display: inline-block; }
+        .swot-slide .swot-q {
+          position: relative;
+          padding: 14px 28px;
+          overflow: hidden;
+          transition: opacity 450ms ease, transform 450ms cubic-bezier(.2,.7,.3,1);
+        }
+        .swot-slide .swot-q.q1 { border-right: 1px solid var(--z-border-default); border-bottom: 1px solid var(--z-border-default); }
+        .swot-slide .swot-q.q2 { border-bottom: 1px solid var(--z-border-default); }
+        .swot-slide .swot-q.q3 { border-right: 1px solid var(--z-border-default); }
+        .swot-slide .swot-letter {
+          position: absolute;
+          right: 16px; bottom: -22px;
+          font: 800 132px/1 Compasse, sans-serif;
+          color: var(--z-text-primary);
+          opacity: 0.06;
+          pointer-events: none;
+        }
+        .swot-slide .swot-q-head {
+          position: relative;
+          font: 800 24px/1.1 Compasse, sans-serif;
+          color: var(--z-text-primary);
+          letter-spacing: -0.01em;
           margin-bottom: 14px;
         }
-        .swot-slide .swot-card ul {
-          margin: 0; padding: 0; list-style: none;
-          display: flex; flex-direction: column; gap: 10px;
+        .swot-slide .swot-q-items {
+          position: relative;
+          display: flex; flex-direction: column; gap: 8px;
         }
-        .swot-slide .swot-card li {
-          font: 400 17px/1.4 Compasse, sans-serif;
-          color: var(--z-text-primary);
-          display: flex; gap: 12px; align-items: flex-start;
+        .swot-slide .swot-q-item {
+          font: 400 18px/1.4 Compasse, sans-serif;
+          color: var(--z-text-secondary);
           text-wrap: pretty;
         }
-        .swot-slide .swot-card li::before {
-          content: '';
-          display: inline-block;
-          width: 6px; height: 6px;
-          border-radius: 50%;
-          background: currentColor;
-          flex-shrink: 0;
-          margin-top: 9px;
+        /* Build: S → W → O → T */
+        .swot-slide:not([data-step]) .swot-q,
+        .swot-slide[data-step="0"] .swot-q,
+        .swot-slide[data-step="1"] .swot-q:not(.q1),
+        .swot-slide[data-step="2"] .swot-q.q3,
+        .swot-slide[data-step="2"] .swot-q.q4,
+        .swot-slide[data-step="3"] .swot-q.q4 {
+          opacity: 0;
+          transform: translateY(10px);
         }
-        .swot-slide .swot-callout {
-          position: absolute;
-          left: 56px; right: 56px;
-          bottom: 86px;
-          padding: 14px 18px;
-          background: rgba(68,147,248,0.08);
-          border: 1px solid rgba(68,147,248,0.30);
-          border-radius: 4px;
-          display: flex; align-items: center; gap: 16px;
-        }
-        .swot-slide .swot-callout-icon {
-          width: 32px; height: 32px;
-          border-radius: 50%;
-          border: 2px solid #4493F8;
-          color: #4493F8;
-          display: inline-flex;
-          align-items: center; justify-content: center;
-          font: 900 18px/1 Compasse, sans-serif;
-          flex-shrink: 0;
-        }
-        .swot-slide .swot-callout-text {
-          font: 600 16px/1.35 Compasse, sans-serif;
-          color: var(--z-text-primary);
+        @media print {
+          .swot-slide .swot-q { opacity: 1 !important; transform: none !important; }
         }
       `}</style>
-      <div className="pad" style={{paddingTop: 32, paddingBottom: 90}}>
+      <div className="pad" style={{paddingTop: 32, paddingBottom: 106}}>
         <div>
-          <div className="eyebrow accent">Aftermath</div>
-          <h2 className="swot-title">React Native: <em style={{color: 'var(--z-accent-primary)', fontStyle: 'italic'}}>SWOT</em>.</h2>
-          <p className="swot-sub">Honest reflection on strength, weakness, opportunities and threats.</p>
+          <div className="eyebrow accent">The decision</div>
+          <h2 className="swot-title">The bet: <em style={{color: 'var(--z-accent-primary)', fontStyle: 'italic'}}>SWOT</em>.</h2>
+          <p className="swot-sub">Honest reflection on strengths, weaknesses, opportunities and threats.</p>
         </div>
 
-        <div className="swot-grid">
-          {quadrants.map((q, i) => (
-            <div key={i} className="swot-card" style={{color: q.color}}>
-              <div className="swot-icon" style={{background: q.tintIcon, color: q.color, border: `1px solid ${q.border}`}}>
-                {q.icon}
+        <div className="swot-matrix">
+          <div></div>
+          <div className="swot-axis swot-axis-top"><span className="swot-tick" style={{background: 'var(--z-accent-green)'}}></span>Helps</div>
+          <div className="swot-axis swot-axis-top"><span className="swot-tick" style={{background: 'var(--z-accent-red)'}}></span>Hurts</div>
+
+          <div className="swot-axis swot-axis-side">Internal</div>
+          {quadrants.slice(0, 2).map((q, i) => (
+            <div key={q.key} className={`swot-q q${i + 1}`}>
+              <div className="swot-letter" aria-hidden="true">{q.key}</div>
+              <div className="swot-q-head">{q.title}</div>
+              <div className="swot-q-items">
+                {q.items.map((t, ti) => <div key={ti} className="swot-q-item">{t}</div>)}
               </div>
-              <div>
-                <div className="swot-card-head" style={{color: q.color}}>{q.title}</div>
-                <ul>
-                  {q.items.map((t, ti) => <li key={ti} style={{color: q.color}}><span style={{color: 'var(--z-text-primary)'}}>{t}</span></li>)}
-                </ul>
+            </div>
+          ))}
+
+          <div className="swot-axis swot-axis-side">External</div>
+          {quadrants.slice(2).map((q, i) => (
+            <div key={q.key} className={`swot-q q${i + 3}`}>
+              <div className="swot-letter" aria-hidden="true">{q.key}</div>
+              <div className="swot-q-head">{q.title}</div>
+              <div className="swot-q-items">
+                {q.items.map((t, ti) => <div key={ti} className="swot-q-item">{t}</div>)}
               </div>
             </div>
           ))}
