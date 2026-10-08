@@ -1542,96 +1542,46 @@ function S09_Duplication() {
 
 // ─── S10b · PWA 2019-2020 ────────────────────────────────────────────
 function S10_PWA() {
-  const Rocket = () => (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
-    </svg>
-  );
-  const Monitor = () => (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style={{display: 'block'}}>
-      <rect x="2" y="2" width="9" height="9" rx="0.5"/>
-      <rect x="13" y="2" width="9" height="9" rx="0.5"/>
-      <rect x="2" y="13" width="9" height="9" rx="0.5"/>
-      <rect x="13" y="13" width="9" height="9" rx="0.5"/>
-    </svg>
-  );
-  const Phone = () => (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" style={{display: 'block'}}>
-      <path d="M6.5 9.5c-.6 0-1.1.5-1.1 1.1V16c0 .6.5 1.1 1.1 1.1.6 0 1.1-.5 1.1-1.1v-5.4c0-.6-.5-1.1-1.1-1.1zm11 0c-.6 0-1.1.5-1.1 1.1V16c0 .6.5 1.1 1.1 1.1.6 0 1.1-.5 1.1-1.1v-5.4c0-.6-.5-1.1-1.1-1.1zM8.3 18.5c0 .7.5 1.2 1.2 1.2h.8v2.2c0 .6.5 1.1 1.1 1.1.6 0 1.1-.5 1.1-1.1v-2.2h1.3v2.2c0 .6.5 1.1 1.1 1.1.6 0 1.1-.5 1.1-1.1v-2.2h.8c.7 0 1.2-.5 1.2-1.2V9.6H8.3v8.9zM15.5 5.5l1-1.6c.1-.1 0-.3-.1-.4-.1-.1-.3 0-.4.1l-1 1.7c-.8-.3-1.7-.5-2.7-.5s-1.9.2-2.7.5l-1-1.7c-.1-.1-.3-.2-.4-.1-.1.1-.2.3-.1.4l1 1.6c-1.8.9-3 2.6-3 4.6h12.3c0-2-1.2-3.7-2.9-4.6zM10.2 7.6c-.3 0-.6-.3-.6-.6 0-.3.3-.6.6-.6.3 0 .6.3.6.6 0 .3-.3.6-.6.6zm3.6 0c-.3 0-.6-.3-.6-.6 0-.3.3-.6.6-.6.3 0 .6.3.6.6 0 .3-.3.6-.6.6z"/>
-    </svg>
-  );
-  const Tv = () => (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2.5" y="6" width="19" height="12" rx="1.5"/>
-      <path d="M8 21h8"/>
-    </svg>
-  );
-  const People = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.2"/>
-      <path d="M3 19c.6-3.4 3-5 6-5s5.4 1.6 6 5"/>
-      <path d="M14 17c.5-1.8 2-3 4-3 1.6 0 3 .9 3.5 3"/>
-    </svg>
-  );
-
-  const cards = [
-    {
-      kind: 'teal',
-      color: 'var(--z-accent-teal)',
-      bg: 'rgba(0,184,212,0.05)',
-      border: 'rgba(0,184,212,0.25)',
-      icon: <Rocket />,
-      title: 'Why it looked promising',
-      bullets: [
-        <>In 2019–2020, PWAs felt like the next big step for the web and beyond.</>,
-        <>Google pushed new capabilities: service workers, background sync, and manifest-based app installs.</>,
-        <>We adopted modern Web technology and pushed PWA wherever it made sense.</>,
-      ],
-    },
-    {
-      kind: 'green',
-      color: 'var(--z-accent-green)',
-      bg: 'rgba(63,185,80,0.05)',
-      border: 'rgba(63,185,80,0.25)',
-      icon: <Monitor />,
-      title: 'Win · Windows',
-      bullets: [
-        <>Replaced the legacy C# Microsoft Store app with a pure web / PWA build.</>,
-        <>Small, clean, easier to maintain</>,
-        <>Still live today</>,
-      ],
-    },
-    {
-      kind: 'red',
-      color: 'var(--z-accent-red)',
-      bg: 'rgba(248,81,73,0.05)',
-      border: 'rgba(248,81,73,0.25)',
-      icon: <Phone />,
-      title: 'Failure · Android mobile',
-      bullets: [
-        <>Close to feature parity — but two blockers remained</>,
-        <><strong>DRM:</strong> browsers on Android couldn't deliver the protection level needed for premium HD content</>,
-        <><strong>Performance:</strong> not native-grade — stutter, memory, old/low-end devices</>,
-        <><strong>Casting:</strong> Cast protocol worked in Chrome, but Samsung phones used Samsung browser</>,
-      ],
-    },
-    {
-      kind: 'red',
-      color: 'var(--z-accent-red)',
-      bg: 'rgba(248,81,73,0.05)',
-      border: 'rgba(248,81,73,0.25)',
-      icon: <Tv />,
-      title: 'Second run · big screen via WebView',
-      bullets: [
-        <>Tried again on the big screen by wrapping Web TV in a WebView</>,
-        <>Same issues returned: performance, animations, DRM, memory overhead</>,
-        <>Premium content still couldn't match native expectations</>,
-      ],
-    },
+  // Scorecard: three attempts × the blockers that decided them.
+  const cols = [
+    { name: 'Windows', meta: 'Desktop PWA · 2019' },
+    { name: 'Android mobile', meta: 'Mobile PWA · 2020' },
+    { name: 'Big screen', meta: 'Web TV in a WebView' },
   ];
+  const rows = [
+    { label: 'DRM', sub: 'Premium HD content', cells: [
+      { m: 'ok' },
+      { m: 'no', note: 'Mobile browsers lacked the protection level' },
+      { m: 'no', note: 'Premium content still blocked' },
+    ]},
+    { label: 'Performance', sub: 'Old & low-end devices', cells: [
+      { m: 'ok' },
+      { m: 'no', note: 'Stutter, memory overhead' },
+      { m: 'no', note: 'Animations, memory overhead' },
+    ]},
+    { label: 'Casting', sub: 'Cast to TV', cells: [
+      { m: 'na' },
+      { m: 'no', note: 'Samsung browser had no Cast' },
+      { m: 'na' },
+    ]},
+  ];
+  const outcome = [
+    { text: 'Replaced the C# Store app. Still live.', ok: true },
+    { text: 'SD in browser, native for HD.', ok: false },
+    { text: 'Stayed native.', ok: false },
+  ];
+  const Mark = ({ m }) => {
+    if (m === 'na') return <span className="pwa-na">—</span>;
+    const ok = m === 'ok';
+    return (
+      <svg className={ok ? 'pwa-mark ok' : 'pwa-mark no'} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-label={ok ? 'Worked' : 'Blocked'}>
+        {ok ? <path d="M4 12.5l5 5L20 6.5"/> : <path d="M6 6l12 12M18 6L6 18"/>}
+      </svg>
+    );
+  };
 
   return (
-    <div className="slide pwa-slide" data-screen-label="03. PWA 2019–2020">
+    <div className="slide pwa-slide" data-screen-label="03. PWA 2019–2020" data-build-max="3">
       <style>{`
         .pwa-slide .pwa-title {
           font: 700 36px/1.05 Compasse, sans-serif;
@@ -1640,89 +1590,75 @@ function S10_PWA() {
           margin: 8px 0 0;
         }
         .pwa-slide .pwa-sub {
-          font: 400 17px/1.4 Compasse, sans-serif;
+          font: 400 18px/1.4 Compasse, sans-serif;
           color: var(--z-text-secondary);
-          margin: 8px 0 0;
+          margin: 10px 0 0;
           max-width: 1050px;
         }
-        .pwa-slide .pwa-grid {
-          margin-top: 22px;
+        .pwa-slide .pwa-table {
+          margin-top: 30px;
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows: 1fr 1fr;
-          gap: 14px;
+          grid-template-columns: 210px repeat(3, minmax(0, 1fr));
+          column-gap: 28px;
         }
-        .pwa-slide .pwa-card {
-          border-radius: 0;
-          padding: 0;
-          display: grid;
-          grid-template-columns: 48px 1fr;
-          gap: 14px;
-          align-items: start;
+        .pwa-slide .pwa-cell {
+          padding: 14px 0;
+          border-top: 1px solid var(--z-border-default);
+          display: flex; flex-direction: column; justify-content: center; gap: 6px;
+          min-height: 64px;
         }
-        .pwa-slide .pwa-card-icon {
-          width: 48px; height: 48px;
-          border-radius: 50%;
-          display: inline-flex;
-          align-items: center; justify-content: center;
+        .pwa-slide .pwa-head {
+          border-top: none;
+          padding: 0 0 12px;
+          justify-content: flex-end;
+          min-height: 0;
         }
-        .pwa-slide .pwa-card-head {
-          font: 800 18px/1 Compasse, sans-serif;
-          letter-spacing: 0.01em;
-          padding-bottom: 8px;
-          border-bottom: 1.5px solid currentColor;
-          margin-bottom: 10px;
-        }
-        .pwa-slide .pwa-card ul {
-          margin: 0; padding: 0; list-style: none;
-          display: flex; flex-direction: column; gap: 8px;
-        }
-        .pwa-slide .pwa-card li {
-          font: 400 16px/1.4 Compasse, sans-serif;
+        .pwa-slide .pwa-col-name {
+          font: 800 22px/1.1 Compasse, sans-serif;
           color: var(--z-text-primary);
-          display: flex; gap: 10px; align-items: flex-start;
+          letter-spacing: -0.01em;
+        }
+        .pwa-slide .pwa-col-meta, .pwa-slide .pwa-row-sub {
+          font: 700 12px/1.2 Compasse, sans-serif;
+          letter-spacing: 0.16em; text-transform: uppercase;
+          color: var(--z-text-tertiary);
+        }
+        .pwa-slide .pwa-row-label {
+          font: 800 19px/1.1 Compasse, sans-serif;
+          color: var(--z-text-primary);
+        }
+        .pwa-slide .pwa-mark.ok { color: var(--z-accent-green); }
+        .pwa-slide .pwa-mark.no { color: var(--z-accent-red); }
+        .pwa-slide .pwa-na {
+          font: 700 22px/1 Compasse, sans-serif;
+          color: var(--z-text-tertiary);
+        }
+        .pwa-slide .pwa-note {
+          font: 400 15px/1.35 Compasse, sans-serif;
+          color: var(--z-text-secondary);
           text-wrap: pretty;
         }
-        .pwa-slide .pwa-card li::before {
-          content: '';
-          display: inline-block;
-          width: 6px; height: 6px;
-          border-radius: 50%;
-          background: var(--z-text-secondary);
-          flex-shrink: 0;
-          margin-top: 8px;
+        .pwa-slide .pwa-outcome {
+          border-top: 1.5px solid var(--z-text-secondary);
         }
-        .pwa-slide .pwa-card strong {
+        .pwa-slide .pwa-outcome-text {
+          font: 700 17px/1.3 Compasse, sans-serif;
           color: var(--z-text-primary);
-          font-weight: 700;
+          text-wrap: pretty;
         }
-
-        .pwa-slide .pwa-callout {
-          position: absolute;
-          left: 56px; right: 56px;
-          bottom: 100px;
-          padding: 14px 18px;
-          background: rgba(0,184,212,0.10);
-          border: 1px solid rgba(0,184,212,0.30);
-          border-radius: 4px;
-          display: flex; align-items: center; gap: 16px;
+        .pwa-slide .pwa-outcome-text.ok { color: var(--z-accent-green); }
+        /* Build: one column per click (Windows → Android → Big screen) */
+        .pwa-slide .pwa-c1, .pwa-slide .pwa-c2, .pwa-slide .pwa-c3 {
+          transition: opacity 450ms ease, transform 450ms cubic-bezier(.2,.7,.3,1);
         }
-        .pwa-slide .pwa-callout-icon {
-          width: 36px; height: 36px;
-          border-radius: 50%;
-          border: 2px solid var(--z-accent-teal);
-          display: inline-flex;
-          align-items: center; justify-content: center;
-          flex-shrink: 0;
-          color: var(--z-accent-teal);
+        .pwa-slide:not([data-step]) .pwa-c1, .pwa-slide[data-step="0"] .pwa-c1,
+        .pwa-slide:not([data-step]) .pwa-c2, .pwa-slide[data-step="0"] .pwa-c2, .pwa-slide[data-step="1"] .pwa-c2,
+        .pwa-slide:not([data-step]) .pwa-c3, .pwa-slide[data-step="0"] .pwa-c3, .pwa-slide[data-step="1"] .pwa-c3, .pwa-slide[data-step="2"] .pwa-c3 {
+          opacity: 0;
+          transform: translateY(10px);
         }
-        .pwa-slide .pwa-callout-text {
-          font: 600 16px/1.35 Compasse, sans-serif;
-          color: var(--z-text-primary);
-        }
-        .pwa-slide .pwa-callout-text em {
-          font-style: italic;
-          color: var(--z-accent-teal);
+        @media print {
+          .pwa-slide .pwa-c1, .pwa-slide .pwa-c2, .pwa-slide .pwa-c3 { opacity: 1 !important; transform: none !important; }
         }
       `}</style>
       <div className="pad" style={{paddingTop: 32, paddingBottom: 90}}>
@@ -1734,20 +1670,34 @@ function S10_PWA() {
           </p>
         </div>
 
-        <div className="pwa-grid">
-          {cards.map((c, i) => (
-            <div key={i} className="pwa-card" style={{color: c.color}}>
-              <div className="pwa-card-icon" style={{background: c.bg, color: c.color, border: `1px solid ${c.border}`}}>
-                {c.icon}
+        <div className="pwa-table">
+          <div className="pwa-cell pwa-head"></div>
+          {cols.map((c, i) => (
+            <div key={c.name} className={`pwa-cell pwa-head pwa-c${i + 1}`} style={{transitionDelay: '0ms'}}>
+              <div className="pwa-col-meta">{c.meta}</div>
+              <div className="pwa-col-name">{c.name}</div>
+            </div>
+          ))}
+          {rows.map(r => (
+            <React.Fragment key={r.label}>
+              <div className="pwa-cell">
+                <div className="pwa-row-label">{r.label}</div>
+                <div className="pwa-row-sub">{r.sub}</div>
               </div>
-              <div>
-                <div className="pwa-card-head" style={{color: c.color}}>
-                  {c.title}
+              {r.cells.map((c, i) => (
+                <div key={i} className={`pwa-cell pwa-c${i + 1}`} style={{transitionDelay: `${(rows.indexOf(r) + 1) * 70}ms`}}>
+                  <Mark m={c.m} />
+                  {c.note && <div className="pwa-note">{c.note}</div>}
                 </div>
-                <ul>
-                  {c.bullets.map((b, bi) => <li key={bi} style={{color: 'var(--z-text-primary)'}}>{b}</li>)}
-                </ul>
-              </div>
+              ))}
+            </React.Fragment>
+          ))}
+          <div className="pwa-cell pwa-outcome">
+            <div className="pwa-row-label">Outcome</div>
+          </div>
+          {outcome.map((o, i) => (
+            <div key={i} className={`pwa-cell pwa-outcome pwa-c${i + 1}`} style={{transitionDelay: `${(rows.length + 1) * 70}ms`}}>
+              <div className={o.ok ? 'pwa-outcome-text ok' : 'pwa-outcome-text'}>{o.text}</div>
             </div>
           ))}
         </div>
@@ -1759,22 +1709,46 @@ function S10_PWA() {
 
 // ─── S11 · Cross-platform candidates ────────────────────────────────
 function S11_Candidates() {
-  const KotlinLogo = () => (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" style={{display: 'block'}}>
-      <path d="M24 24H0V0h24L12 12 24 24z"/>
+  // Official marks, drawn from the published brand geometry.
+  const KotlinLogo = ({ s = 56 }) => (
+    <svg width={s} height={s} viewBox="0 0 500 500" style={{display: 'block'}} aria-label="Kotlin">
+      <defs>
+        <linearGradient id="kotlinGrad" x1="500" y1="0" x2="0" y2="500" gradientUnits="userSpaceOnUse">
+          <stop offset="0.003" stopColor="#E44857"/>
+          <stop offset="0.469" stopColor="#C711E1"/>
+          <stop offset="1" stopColor="#7F52FF"/>
+        </linearGradient>
+      </defs>
+      <polygon fill="url(#kotlinGrad)" points="500 500 0 500 0 0 500 0 250 250"/>
     </svg>
   );
-  const FlutterLogo = () => (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" style={{display: 'block'}}>
-      <path d="M14.314 0L2.3 12 6 15.7 21.684 0.013h-7.37zM14.3 11.7L7 19l7.3 5H21.7l-7.3-5 7.3-7.3h-7.4z"/>
+  const FlutterLogo = ({ s = 56 }) => (
+    <svg width={s * 166 / 202} height={s} viewBox="0 0 166 202" style={{display: 'block'}} aria-label="Flutter">
+      <polygon fill="#47C5FB" points="37.7,128.9 9.8,101 100.4,10.4 156.2,10.4"/>
+      <polygon fill="#47C5FB" points="156.2,94 100.4,94 79.2,115.2 107.1,143.1"/>
+      <polygon fill="#47C5FB" points="79.3,114.9 107.4,142.8 79.5,170.7 51.4,142.8"/>
+      <polygon fill="#00569E" points="79.5,170.7 100.4,191.6 156.2,191.6 107.4,142.8"/>
+      <polygon fill="#00B5F8" points="79.5,170.7 107.4,142.8 93.5,156.75"/>
     </svg>
   );
-  const ReactLogo = () => (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="2"/>
-      <ellipse cx="12" cy="12" rx="10" ry="4"/>
-      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
-      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>
+  const ReactLogo = ({ s = 56 }) => (
+    <svg width={s * 23 / 20.46} height={s} viewBox="-11.5 -10.23174 23 20.46348" style={{display: 'block'}} aria-label="React">
+      <circle r="2.05" fill="#61DAFB"/>
+      <g stroke="#61DAFB" strokeWidth="1" fill="none">
+        <ellipse rx="11" ry="4.2"/>
+        <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+        <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+      </g>
+    </svg>
+  );
+  const Cross = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--z-accent-red)" strokeWidth="2.8" strokeLinecap="round" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18"/>
+    </svg>
+  );
+  const Caution = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--z-accent-yellow)" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">
+      <path d="M12 5v9M12 19.2v.1"/>
     </svg>
   );
 
@@ -1783,42 +1757,36 @@ function S11_Candidates() {
       logo: <KotlinLogo />,
       name: 'Kotlin Multiplatform',
       meta: 'Beta until Nov 2023',
-      kind: 'red',
-      color: 'var(--z-accent-red)',
-      bg: 'rgba(248,81,73,0.05)',
-      border: 'rgba(248,81,73,0.25)',
-      bullets: [
+      facts: [
         <><strong>Apple TV:</strong> community / experimental support</>,
         <>Conversion cost too high for our React-heavy team</>,
       ],
+      mark: <Cross />,
+      tone: 'var(--z-accent-red)',
       verdict: 'Not ready for the full TV matrix',
     },
     {
       logo: <FlutterLogo />,
       name: 'Flutter',
       meta: '2021 – 2022',
-      kind: 'red',
-      color: 'var(--z-accent-red)',
-      bg: 'rgba(248,81,73,0.05)',
-      border: 'rgba(248,81,73,0.25)',
-      bullets: [
+      facts: [
         <><strong>No official tvOS</strong> support, still none today</>,
         <>Android TV via workarounds, nothing clean</>,
       ],
-      verdict: 'Apple TV only via custom community engine',
+      mark: <Cross />,
+      tone: 'var(--z-accent-red)',
+      verdict: 'Apple TV only via a custom community engine',
     },
     {
       logo: <ReactLogo />,
-      name: <><span style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '0.85em'}}>react-native-tvos</span></>,
+      name: <span style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '0.86em', letterSpacing: '-0.02em'}}>react-native-tvos</span>,
       meta: 'Community fork · since ~2018',
-      kind: 'amber',
-      color: '#E8A82A',
-      bg: 'rgba(232,168,42,0.06)',
-      border: 'rgba(232,168,42,0.28)',
-      bullets: [
+      facts: [
         <>Apple TV was <strong>removed from RN core</strong></>,
-        <>Maintained by the community, not Facebook/Meta</>,
+        <>Maintained by the community, not Meta</>,
       ],
+      mark: <Caution />,
+      tone: 'var(--z-accent-yellow)',
       verdict: 'Not production-credible across our full TV matrix',
     },
   ];
@@ -1833,83 +1801,63 @@ function S11_Candidates() {
           margin: 8px 0 0;
         }
         .candidates-slide .cand-lede {
-          font: 400 17px/1.4 Compasse, sans-serif;
+          font: 400 18px/1.4 Compasse, sans-serif;
           color: var(--z-text-secondary);
-          margin: 8px 0 0;
+          margin: 10px 0 0;
           max-width: 1050px;
         }
-        .candidates-slide .cand-sub {
-          font: 400 italic 22px/1.35 Compasse, sans-serif;
-          color: var(--z-accent-red);
-          margin: 10px 0 0;
-        }
         .candidates-slide .cand-grid {
-          margin-top: 28px;
+          margin-top: 56px;
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-template-rows: auto auto auto 1fr auto;
+          column-gap: 48px;
         }
-        .candidates-slide .cand-card {
-          border-radius: 6px;
-          padding: 20px 22px;
-          display: flex; flex-direction: column;
-          gap: 10px;
+        .candidates-slide .cand-col {
+          display: grid;
+          grid-row: span 5;
+          grid-template-rows: subgrid;
         }
-        .candidates-slide .cand-card-header {
+        .candidates-slide .cand-logo {
+          height: 64px;
           display: flex; align-items: center;
-          gap: 14px;
-        }
-        .candidates-slide .cand-icon {
-          width: 48px; height: 48px;
-          border-radius: 50%;
-          display: inline-flex;
-          align-items: center; justify-content: center;
-          flex-shrink: 0;
+          margin-bottom: 20px;
         }
         .candidates-slide .cand-name {
-          font: 800 18px/1.1 Compasse, sans-serif;
-          letter-spacing: -0.005em;
+          font: 800 24px/1.1 Compasse, sans-serif;
+          color: var(--z-text-primary);
+          letter-spacing: -0.01em;
         }
         .candidates-slide .cand-meta {
-          font: 700 11px/1 Compasse, sans-serif;
-          letter-spacing: 0.18em;
+          font: 700 12px/1.2 Compasse, sans-serif;
+          letter-spacing: 0.16em;
           text-transform: uppercase;
+          color: var(--z-text-tertiary);
+          margin-top: 8px;
+        }
+        .candidates-slide .cand-facts {
+          margin-top: 18px;
+          padding-top: 16px;
+          border-top: 1px solid var(--z-border-default);
+          display: flex; flex-direction: column; gap: 10px;
+        }
+        .candidates-slide .cand-fact {
+          font: 400 19px/1.4 Compasse, sans-serif;
           color: var(--z-text-secondary);
-          margin-top: 4px;
-        }
-        .candidates-slide .cand-divider {
-          height: 1.5px;
-          background: currentColor;
-          opacity: 0.45;
-        }
-        .candidates-slide .cand-card ul {
-          margin: 0; padding: 0; list-style: none;
-          display: flex; flex-direction: column; gap: 8px;
-        }
-        .candidates-slide .cand-card li {
-          font: 400 14px/1.4 Compasse, sans-serif;
-          color: var(--z-text-primary);
-          display: flex; gap: 8px; align-items: flex-start;
           text-wrap: pretty;
         }
-        .candidates-slide .cand-card li::before {
-          content: '';
-          display: inline-block;
-          width: 5px; height: 5px;
-          border-radius: 50%;
-          background: var(--z-text-secondary);
-          flex-shrink: 0;
-          margin-top: 7px;
-        }
-        .candidates-slide .cand-card strong {
-          color: var(--z-text-primary);
-          font-weight: 700;
-        }
+        .candidates-slide .cand-fact strong { color: var(--z-text-primary); font-weight: 700; }
         .candidates-slide .cand-verdict {
-          margin-top: auto;
-          padding-top: 14px;
-          font: 600 italic 14px/1.35 Compasse, sans-serif;
+          margin-top: 22px;
+          padding-top: 16px;
+          border-top: 1.5px solid var(--z-text-secondary);
+          display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start;
+          align-self: start;
+          font: 700 19px/1.3 Compasse, sans-serif;
+          color: var(--z-text-primary);
+          text-wrap: pretty;
         }
+        .candidates-slide .cand-verdict svg { margin-top: 1px; }
       `}</style>
       <div className="pad" style={{paddingTop: 32, paddingBottom: 90}}>
         <div>
@@ -1920,23 +1868,14 @@ function S11_Candidates() {
 
         <div className="cand-grid">
           {candidates.map((c, i) => (
-            <div key={i} className="cand-card" style={{background: c.bg, border: `1px solid ${c.border}`, color: c.color}}>
-              <div className="cand-card-header">
-                <div className="cand-icon" style={{background: c.bg, color: c.color, border: `1px solid ${c.border}`}}>
-                  {c.logo}
-                </div>
-                <div>
-                  <div className="cand-name" style={{color: c.color}}>{c.name}</div>
-                  <div className="cand-meta">{c.meta}</div>
-                </div>
+            <div key={i} className="cand-col">
+              <div className="cand-logo">{c.logo}</div>
+              <div className="cand-name">{c.name}</div>
+              <div className="cand-meta">{c.meta}</div>
+              <div className="cand-facts">
+                {c.facts.map((f, fi) => <div key={fi} className="cand-fact">{f}</div>)}
               </div>
-              <div className="cand-divider"></div>
-              <ul>
-                {c.bullets.map((b, bi) => <li key={bi}>{b}</li>)}
-              </ul>
-              <div className="cand-verdict" style={{color: c.color}}>
-                {c.verdict}
-              </div>
+              <div className="cand-verdict">{c.mark}<span style={{color: c.tone}}>{c.verdict}</span></div>
             </div>
           ))}
         </div>
